@@ -1,0 +1,5616 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Bazar Budget</title>
+    <style>
+      :root {
+        --bg: #f7f7f7;
+        --card: #fff;
+        --tx: #161616;
+        --mu: #5f6368;
+        --ac: #1f8a4c;
+        --hd: #0b1a5a;
+        --bd: #e3e3e3;
+        --bad: #c62828;
+        --btn: #0d0d0d;
+        --bt: #fff;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #121212;
+          --card: #1c1c1c;
+          --tx: #ececec;
+          --mu: #a0a0a0;
+          --ac: #4cc27f;
+          --hd: #9db4ff;
+          --bd: #2e2e2e;
+          --bad: #ff8a80;
+          --btn: #4cc27f;
+          --bt: #0d0d0d;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #121212;
+        --card: #1c1c1c;
+        --tx: #ececec;
+        --mu: #a0a0a0;
+        --ac: #4cc27f;
+        --hd: #9db4ff;
+        --bd: #2e2e2e;
+        --bad: #ff8a80;
+        --btn: #4cc27f;
+        --bt: #0d0d0d;
+      }
+      html {
+        scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 110px);
+        scroll-behavior: smooth;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--tx);
+        font:
+          16px/1.55 "Noto Sans Bengali",
+          system-ui,
+          sans-serif;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0 0 auto;
+        height: env(safe-area-inset-top, 0px);
+        background: #0d0d0d;
+        z-index: 10;
+      }
+      header {
+        position: sticky;
+        top: env(safe-area-inset-top, 0px);
+        background: #0d0d0d;
+        color: #fff;
+        z-index: 11;
+        padding: 10px 14px;
+      }
+      .bar {
+        max-width: 980px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 16px;
+        align-items: center;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: #fff;
+        font-weight: 700;
+        font-size: 18px;
+      }
+      .logo {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: var(--ac);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      nav {
+        display: flex;
+        gap: 2px 14px;
+        flex-wrap: wrap;
+        flex: 1;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        padding: 3px 0;
+        border-bottom: 2px solid transparent;
+      }
+      nav a:hover {
+        border-color: var(--ac);
+      }
+      .sw {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .sw a {
+        color: #fff;
+        display: flex;
+      }
+      #q {
+        width: 140px;
+        padding: 6px 10px;
+        background: #1f1f1f;
+        border: 1px solid #333;
+        color: #fff;
+      }
+      #lg {
+        width: auto;
+        margin: 0;
+        padding: 6px 12px;
+        background: #fff;
+        color: #0d0d0d;
+      }
+      .hero {
+        background: linear-gradient(120deg, #0d0d0d, #12351f 70%, #1f6b43);
+        color: #fff;
+        padding: 30px 14px;
+      }
+      .hin {
+        max-width: 980px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        justify-content: space-between;
+      }
+      .hin h1 {
+        margin: 8px 0 4px;
+        font-size: 30px;
+        line-height: 1.25;
+      }
+      .hin p {
+        margin: 0 0 14px;
+        opacity: 0.9;
+      }
+      .pill {
+        display: inline-block;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 999px;
+        padding: 2px 10px;
+      }
+      .hc {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .hc span {
+        background: rgba(255, 255, 255, 0.14);
+        border-radius: 8px;
+        padding: 4px 10px;
+        font-size: 13px;
+      }
+      .art {
+        width: 230px;
+        flex: none;
+      }
+      main {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 18px 14px 40px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--bd);
+        border-radius: 12px;
+        padding: 18px;
+        margin-bottom: 18px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      }
+      h2 {
+        margin: 0 0 10px;
+        font-size: 20px;
+        color: var(--hd);
+      }
+      h3 {
+        margin: 14px 0 4px;
+        font-size: 16px;
+      }
+      .ic {
+        display: inline-flex;
+        vertical-align: -4px;
+        margin-right: 6px;
+      }
+      label {
+        display: block;
+        font-size: 14px;
+        color: var(--mu);
+        margin: 8px 0 3px;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 9px;
+        border: 1px solid var(--bd);
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--tx);
+        font: inherit;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 10px;
+      }
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        max-height: 210px;
+        overflow: auto;
+        padding: 2px;
+      }
+      .chip {
+        display: inline-block;
+        margin: 0;
+        border: 1px solid var(--bd);
+        border-radius: 999px;
+        padding: 3px 11px;
+        font-size: 14px;
+        color: var(--tx);
+        cursor: pointer;
+        background: var(--card);
+      }
+      .chip input {
+        display: none;
+      }
+      .chip.on {
+        background: var(--ac);
+        color: #fff;
+        border-color: var(--ac);
+      }
+      .chips.x .chip.on {
+        background: var(--bad);
+        border-color: var(--bad);
+      }
+      .ci {
+        display: inline-flex;
+        vertical-align: -3px;
+        margin-right: 6px;
+      }
+      .ci.big {
+        margin: 0 0 6px;
+      }
+      .c-g {
+        color: #c58a00;
+      }
+      .c-l {
+        color: #a0522d;
+      }
+      .c-v {
+        color: #2e9e49;
+      }
+      .c-m {
+        color: #d64545;
+      }
+      .c-f {
+        color: #2f7fc4;
+      }
+      .c-e {
+        color: #d9a400;
+      }
+      .c-d {
+        color: #6f8fb0;
+      }
+      .c-o {
+        color: #777;
+      }
+      .chip.on .ci {
+        color: #fff;
+      }
+      button {
+        background: var(--btn);
+        color: var(--bt);
+        border: 0;
+        border-radius: 8px;
+        padding: 12px 18px;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 12px;
+        width: 100%;
+      }
+      button:disabled {
+        opacity: 0.6;
+      }
+      .warn {
+        font-size: 13px;
+        color: var(--mu);
+      }
+      .bad {
+        color: var(--bad);
+        font-weight: 600;
+      }
+      .ok {
+        color: var(--ac);
+        font-weight: 600;
+      }
+      .big {
+        font-size: 18px;
+      }
+      .scroll {
+        overflow-x: auto;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 14px;
+      }
+      th,
+      td {
+        border-bottom: 1px solid var(--bd);
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      td input {
+        width: 80px;
+        padding: 4px 6px;
+      }
+      .tcard {
+        background: var(--bg);
+        border: 1px solid var(--bd);
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 12px;
+      }
+      .lbl,
+      .sub {
+        color: var(--mu);
+        font-size: 14px;
+      }
+      .num {
+        font-size: 34px;
+        font-weight: 700;
+        color: var(--ac);
+        line-height: 1.2;
+      }
+      .bld {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .bld select {
+        flex: 2;
+        min-width: 150px;
+      }
+      .bld input {
+        flex: 1;
+        min-width: 80px;
+        width: auto;
+      }
+      .sm {
+        width: auto;
+        margin: 0;
+        padding: 9px 16px;
+      }
+      .rm {
+        background: none;
+        color: var(--bad);
+        padding: 0 8px;
+        margin: 0;
+        width: auto;
+        font-size: 20px;
+      }
+      .pv {
+        background: var(--bg);
+        border-left: 4px solid var(--ac);
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin: 10px 0;
+        font-size: 14px;
+      }
+      .trk {
+        height: 9px;
+        background: var(--bd);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .fil {
+        height: 100%;
+        background: var(--ac);
+      }
+      .pb {
+        margin: 8px 0;
+      }
+      .dg {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .day {
+        border: 1px solid var(--bd);
+        border-radius: 10px;
+        padding: 10px 12px;
+        background: var(--bg);
+      }
+      .day h3 {
+        margin: 0 0 6px;
+        color: var(--hd);
+      }
+      .meal {
+        display: flex;
+        gap: 10px;
+        padding: 6px 0;
+        border-top: 1px solid var(--bd);
+      }
+      .mt {
+        width: 54px;
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--ac);
+      }
+      .md {
+        flex: 1;
+        font-size: 14px;
+      }
+      .mc {
+        color: var(--mu);
+        font-size: 12px;
+      }
+      .dt {
+        margin-top: 6px;
+        font-size: 13px;
+      }
+      .fcs {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px;
+      }
+      .fc {
+        perspective: 800px;
+        height: 160px;
+        cursor: pointer;
+      }
+      .fi {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.5s;
+        transform-style: preserve-3d;
+      }
+      .fc.on .fi {
+        transform: rotateY(180deg);
+      }
+      .ff,
+      .fb {
+        position: absolute;
+        inset: 0;
+        backface-visibility: hidden;
+        border-radius: 12px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 2px;
+      }
+      .ff {
+        background: var(--card);
+        border: 1px solid var(--bd);
+      }
+      .fb {
+        background: #0d0d0d;
+        color: #fff;
+        transform: rotateY(180deg);
+        font-size: 13px;
+      }
+      .rec {
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-size: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--bd);
+      }
+      .tg {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        align-items: center;
+      }
+      .tart svg {
+        width: 100%;
+        border-radius: 12px;
+        display: block;
+      }
+      .tl a {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--bd);
+      }
+      .tl a:last-child {
+        border: 0;
+      }
+      .tl h3 {
+        margin: 0;
+        font-size: 18px;
+      }
+      .tl p {
+        margin: 4px 0 0;
+        color: var(--mu);
+        font-size: 14px;
+      }
+      footer {
+        background: #000;
+        color: #fff;
+        padding: 32px 14px;
+      }
+      .fg {
+        max-width: 980px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 24px;
+      }
+      footer h4 {
+        margin: 0 0 10px;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+      footer a,
+      footer p {
+        display: block;
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        margin: 0 0 6px;
+        opacity: 0.9;
+      }
+      footer a:hover {
+        opacity: 1;
+        text-decoration: underline;
+      }
+      .fl {
+        max-width: 980px;
+        margin: 18px auto 0;
+        border-top: 1px solid #333;
+        padding-top: 12px;
+        font-size: 12px;
+        color: #aaa;
+      }
+      @media (max-width: 700px) {
+        .two,
+        .dg,
+        .tg {
+          grid-template-columns: 1fr;
+        }
+        .art {
+          display: none;
+        }
+        .hin h1 {
+          font-size: 24px;
+        }
+        #q {
+          width: 110px;
+        }
+      }
+
+      @keyframes up {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes fl {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+      @keyframes pop {
+        from {
+          opacity: 0;
+          transform: scale(0.85);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .card,
+      .day,
+      .rgc,
+      .tl a {
+        animation: up 0.55s both;
+      }
+      .art {
+        animation: fl 4.5s ease-in-out infinite;
+      }
+      .chip,
+      button,
+      .badge {
+        transition: all 0.2s;
+      }
+      button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+      .fil {
+        transition: width 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .rp {
+        transition: stroke-dashoffset 1.1s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .dash {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 14px;
+        margin: 6px 0 10px;
+      }
+      .rgc {
+        background: var(--bg);
+        border: 1px solid var(--bd);
+        border-radius: 14px;
+        padding: 14px;
+        text-align: center;
+      }
+      .rw {
+        position: relative;
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 6px;
+      }
+      .rn {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 1.1;
+        text-align: center;
+        padding: 0 12px;
+      }
+      .rt {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-weight: 600;
+        color: var(--hd);
+        font-size: 14px;
+      }
+      .rt .ic {
+        margin: 0;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin: 4px 0;
+      }
+      .tag {
+        font-size: 12px;
+        border: 1px solid var(--bd);
+        border-radius: 999px;
+        padding: 1px 8px;
+        background: var(--card);
+        animation: pop 0.4s both;
+      }
+      .badge {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 2px 10px;
+        font-size: 12px;
+        border: 1px solid var(--bd);
+        background: var(--card);
+        margin-right: 6px;
+      }
+      .badge.ok {
+        border-color: var(--ac);
+      }
+      .badge.bad {
+        border-color: var(--bad);
+      }
+      .mt {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+      }
+      .mt .ic {
+        margin: 0;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+
+      .th {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        object-fit: cover;
+        vertical-align: -6px;
+        margin-right: 7px;
+        border: 1px solid var(--bd);
+      }
+      td .th {
+        width: 32px;
+        height: 32px;
+        vertical-align: -10px;
+      }
+      .tag .th {
+        width: 16px;
+        height: 16px;
+        vertical-align: -4px;
+        margin-right: 4px;
+      }
+      .th.big {
+        width: 64px;
+        height: 64px;
+        border: 3px solid rgba(255, 255, 255, 0.8);
+        margin: 0 0 4px;
+        position: relative;
+        z-index: 1;
+      }
+      .fcs {
+        grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)) !important;
+      }
+      .fc {
+        height: 190px !important;
+        transition: transform 0.25s;
+      }
+      .fc:hover {
+        transform: translateY(-5px) scale(1.03);
+      }
+      .ff {
+        color: #fff !important;
+        border: 0 !important;
+        overflow: hidden;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+        justify-content: center;
+      }
+      .fb {
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+      }
+      .fn {
+        font-size: 17px;
+        font-weight: 700;
+        position: relative;
+        z-index: 1;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+      }
+      .fv {
+        font-size: 38px;
+        font-weight: 800;
+        line-height: 1.1;
+        position: relative;
+        z-index: 1;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+      .fs {
+        font-size: 12px;
+        opacity: 0.95;
+        position: relative;
+        z-index: 1;
+      }
+      .fv2 {
+        font-size: 34px;
+        font-weight: 800;
+        color: #4cc27f;
+        line-height: 1.1;
+      }
+      .fs2 {
+        font-size: 12px;
+        opacity: 0.8;
+      }
+      .wm {
+        position: absolute;
+        right: -12px;
+        bottom: -12px;
+        opacity: 0.2;
+        color: #fff;
+      }
+      .rk {
+        position: absolute;
+        left: 10px;
+        top: 8px;
+        font-weight: 800;
+        font-size: 14px;
+        background: rgba(0, 0, 0, 0.28);
+        border-radius: 999px;
+        padding: 0 9px;
+      }
+      .bz {
+        position: absolute;
+        right: 10px;
+        top: 8px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulse 1.6s ease-in-out infinite;
+      }
+      .mtr {
+        width: 80%;
+        height: 6px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.3);
+        margin-top: 8px;
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+      }
+      .mf {
+        height: 100%;
+        background: #fff;
+        border-radius: 4px;
+        transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
+        }
+        50% {
+          transform: scale(1.12);
+          box-shadow: 0 0 0 7px rgba(255, 255, 255, 0);
+        }
+      }
+      .hh {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .hero {
+        background: linear-gradient(
+          115deg,
+          #d9480f 0%,
+          #f08c00 48%,
+          #5fa513 100%
+        ) !important;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero h1 {
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        font-size: 34px !important;
+      }
+      .hero p {
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+        font-size: 17px;
+      }
+      .hero .pill {
+        background: rgba(0, 0, 0, 0.18);
+      }
+      .hc span {
+        background: rgba(0, 0, 0, 0.2) !important;
+      }
+      .cta {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 4px 0 14px;
+      }
+      .cta a {
+        padding: 10px 20px;
+        border-radius: 999px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s;
+      }
+      .cta a:hover {
+        transform: translateY(-2px);
+      }
+      .cta .b1 {
+        background: #fff;
+        color: #b23a05;
+      }
+      .cta .b2 {
+        border: 2px solid #fff;
+        color: #fff;
+      }
+      .hf {
+        position: relative;
+        width: 310px;
+        height: 285px;
+        flex: none;
+      }
+      .fd {
+        position: absolute;
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        background: #fff;
+        padding: 5px;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+        animation: fl 4s ease-in-out infinite;
+      }
+      .fd img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        display: block;
+      }
+      .mq {
+        background: #0d0d0d;
+        color: #fff;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .mqi {
+        display: inline-flex;
+        gap: 30px;
+        padding: 10px 0;
+        animation: mqa 60s linear infinite;
+      }
+      .mqi:hover {
+        animation-play-state: paused;
+      }
+      .mi {
+        display: inline-flex;
+        align-items: center;
+        font-size: 14px;
+      }
+      .mi b {
+        color: #f7b731;
+        margin-left: 6px;
+      }
+      .mi .th {
+        border: 0;
+      }
+      @keyframes mqa {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      .sw {
+        position: relative;
+      }
+      #th {
+        width: auto;
+        margin: 0;
+        padding: 6px 8px;
+        background: #1f1f1f;
+        color: #fff;
+        display: flex;
+      }
+      .sug {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 0;
+        width: 280px;
+        max-width: 85vw;
+        background: var(--card);
+        color: var(--tx);
+        border: 1px solid var(--bd);
+        border-radius: 10px;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+        z-index: 30;
+        overflow: hidden;
+      }
+      .si {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .si:hover {
+        background: var(--bg);
+      }
+      .si small {
+        margin-left: auto;
+        color: var(--mu);
+        font-size: 11px;
+      }
+      .si.sec span {
+        font-weight: 600;
+        color: var(--hd);
+      }
+      @media (max-width: 700px) {
+        .hf {
+          display: none;
+        }
+        .hero h1 {
+          font-size: 26px !important;
+        }
+      }
+
+      :root {
+        --btn: linear-gradient(135deg, #f59f00, #e8590c);
+        --bt: #fff;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --btn: linear-gradient(135deg, #f59f00, #e8590c);
+          --bt: #fff;
+        }
+      }
+      :root[data-theme="dark"] {
+        --btn: linear-gradient(135deg, #f59f00, #e8590c);
+        --bt: #fff;
+      }
+      body {
+        background-image: radial-gradient(
+          rgba(240, 140, 0, 0.09) 2px,
+          transparent 2px
+        );
+        background-size: 28px 28px;
+      }
+      .card {
+        border-top: 5px solid var(--sc, var(--ac));
+      }
+      .card > h2 {
+        display: flex;
+        align-items: center;
+        font-size: 23px;
+      }
+      .sh-i {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        border: 3px solid var(--sc, var(--ac));
+        background: #fff;
+        margin-right: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+        animation: pop 0.6s both;
+        transition: transform 0.35s;
+        flex: none;
+      }
+      .card:hover > h2 .sh-i {
+        transform: rotate(-14deg) scale(1.12);
+      }
+      .card > h2 span {
+        background: linear-gradient(90deg, var(--hd), var(--sc, var(--ac)));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .fs {
+        max-width: 980px;
+        margin: 0 auto 22px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+      .fs img {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #fff;
+        padding: 3px;
+        animation: fl 3.5s ease-in-out infinite;
+      }
+      .fs img:nth-child(even) {
+        animation-delay: 0.6s;
+      }
+      .fs img:nth-child(3n) {
+        animation-delay: 1.2s;
+      }
+      .chip.on {
+        background: linear-gradient(135deg, #f59f00, #e8590c);
+        border-color: transparent;
+      }
+      .chips.x .chip.on {
+        background: linear-gradient(135deg, #e03131, #a61e4d);
+      }
+      .tcard {
+        border-left: 5px solid var(--sc, var(--ac));
+      }
+
+      @keyframes slide {
+        from {
+          opacity: 0;
+          transform: translateX(-26px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .dpn {
+        animation: up 0.4s both;
+      }
+      .dph {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 4px;
+      }
+      .dph h3 {
+        margin: 0;
+        font-size: 20px;
+        color: var(--hd);
+      }
+      .tl2 {
+        margin-top: 14px;
+      }
+      .mrow {
+        position: relative;
+        display: flex;
+        gap: 14px;
+        padding-bottom: 16px;
+        animation: slide 0.55s both;
+      }
+      .mrow:not(:last-child)::before {
+        content: "";
+        position: absolute;
+        left: 22px;
+        top: 46px;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(180deg, var(--mc), var(--bd));
+        border-radius: 2px;
+      }
+      .mico {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: var(--mc);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+        transition: transform 0.3s;
+      }
+      .mrow:hover .mico {
+        transform: scale(1.12) rotate(-8deg);
+      }
+      .mcard {
+        flex: 1;
+        min-width: 0;
+        border: 1px solid var(--bd);
+        border-left: 5px solid var(--mc);
+        border-radius: 12px;
+        padding: 10px 14px;
+        background: var(--card);
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+      }
+      .mcard:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+      }
+      .mh {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .mbadge {
+        background: var(--mc);
+        color: #fff;
+        border-radius: 999px;
+        padding: 2px 14px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .mdish {
+        font-weight: 700;
+        font-size: 17px;
+        margin: 8px 0 4px;
+      }
+      .mbar {
+        height: 6px;
+        border-radius: 4px;
+        background: var(--bd);
+        margin-top: 8px;
+        overflow: hidden;
+      }
+      .mbf {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .wk {
+        display: flex;
+        gap: 8px;
+        height: 170px;
+        margin: 6px 0 16px;
+      }
+      .wcol {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 10px;
+        padding: 4px 2px;
+        animation: up 0.5s both;
+        transition: background 0.2s;
+      }
+      .wcol:hover {
+        background: rgba(245, 159, 0, 0.1);
+      }
+      .wcol.on {
+        background: rgba(245, 159, 0, 0.18);
+        outline: 2px solid #f59f00;
+      }
+      .wbw {
+        position: relative;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        align-items: flex-end;
+      }
+      .wb {
+        width: 68%;
+        margin: 0 auto;
+        border-radius: 8px 8px 0 0;
+        transition: height 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .wv {
+        font-size: 11px;
+        color: var(--mu);
+      }
+      .wl {
+        font-size: 12px;
+        font-weight: 700;
+        margin-top: 3px;
+      }
+      .gline {
+        position: absolute;
+        left: 0;
+        right: 0;
+        border-top: 2px dashed var(--ac);
+        pointer-events: none;
+      }
+
+      .vds {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 14px;
+        margin: 12px 0;
+      }
+      .vd {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        border-radius: 16px;
+        padding: 14px 16px;
+        color: #fff;
+        animation: pop 0.6s both;
+        position: relative;
+        overflow: hidden;
+      }
+      .vd::after {
+        content: "";
+        position: absolute;
+        right: -30px;
+        top: -30px;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.14);
+      }
+      .vok {
+        background: linear-gradient(135deg, #2f9e44, #94d82d);
+      }
+      .vno {
+        background: linear-gradient(135deg, #e8590c, #e03131);
+      }
+      .vi {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.28);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        animation: pulse 2s ease-in-out infinite;
+      }
+      .vl {
+        font-size: 13px;
+        opacity: 0.95;
+        letter-spacing: 0.4px;
+      }
+      .vbig {
+        font-size: 22px;
+        font-weight: 800;
+        line-height: 1.2;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      }
+      .vs {
+        font-size: 13px;
+        opacity: 0.95;
+      }
+      .tip {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: linear-gradient(135deg, #fff4d6, #ffe0b8);
+        color: #4a2f00;
+        border: 2px dashed #f59f00;
+        border-radius: 16px;
+        padding: 12px 16px;
+        margin-top: 8px;
+        animation: up 0.6s 0.3s both;
+      }
+      .tipi {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #f59f00;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        animation: fl 3s ease-in-out infinite;
+      }
+      .tipt {
+        flex: 1;
+        font-size: 14px;
+      }
+      .tipt b {
+        display: block;
+        font-size: 15px;
+        color: #b23a05;
+      }
+      .tipm {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        flex: none;
+      }
+      .cf {
+        position: absolute;
+        top: -12px;
+        width: 8px;
+        height: 12px;
+        border-radius: 2px;
+        animation: cfa 2.4s ease-in forwards;
+        pointer-events: none;
+      }
+      @keyframes cfa {
+        to {
+          transform: translateY(340px) rotate(var(--r));
+          opacity: 0;
+        }
+      }
+      .pv {
+        display: flex !important;
+        align-items: center;
+        gap: 16px;
+        background: linear-gradient(135deg, var(--bg), var(--card)) !important;
+        border: 1px solid var(--bd) !important;
+        border-left: 6px solid #e8590c !important;
+        border-radius: 16px !important;
+        padding: 14px 16px !important;
+      }
+      .pvi {
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        flex: none;
+        animation: pop 0.5s both;
+      }
+      .pvb {
+        flex: 1;
+        min-width: 0;
+      }
+      .pvn {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--hd);
+      }
+      .pvc,
+      .pvg {
+        font-size: 13px;
+        color: var(--mu);
+      }
+      .pvbig {
+        font-size: 34px;
+        font-weight: 800;
+        line-height: 1.15;
+        color: #e8590c;
+      }
+      .pvbig small {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--mu);
+        margin-right: 12px;
+      }
+      .pvbig span:last-of-type {
+        color: #1c7ed6;
+      }
+      .rng {
+        width: 100%;
+        padding: 0;
+        border: 0;
+        background: none;
+        accent-color: #e8590c;
+        margin: 10px 0 2px;
+      }
+      .empty {
+        text-align: center;
+        padding: 18px 10px;
+        border: 2px dashed var(--bd);
+        border-radius: 16px;
+        margin: 10px 0;
+        animation: up 0.5s both;
+      }
+      .empty svg {
+        animation: fl 3s ease-in-out infinite;
+      }
+      .em1 {
+        font-weight: 700;
+        font-size: 16px;
+        margin: 4px 0;
+      }
+      .bgrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 10px;
+        margin: 8px 0;
+      }
+      .bc {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding: 12px;
+        border-radius: 12px;
+        background: var(--bg);
+        border: 1px solid var(--bd);
+        border-left: 5px solid var(--bc);
+        animation: up 0.5s both;
+        transition: transform 0.25s;
+        font-size: 14px;
+      }
+      .bc:hover {
+        transform: translateY(-3px);
+      }
+      .bci {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--bc);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      @media (max-width: 560px) {
+        .pv {
+          flex-direction: column;
+          text-align: center;
+        }
+        .pvbig {
+          font-size: 28px;
+        }
+      }
+
+      .xfm {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 8px;
+        align-items: center;
+      }
+      .xfm .sm {
+        grid-column: auto;
+      }
+      .cbx {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        grid-column: 1/-1;
+      }
+      .cbx input {
+        flex: 1;
+      }
+      .cbp .th {
+        width: 34px;
+        height: 34px;
+        margin: 0;
+      }
+      .cbl {
+        display: none;
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        right: 0;
+        max-height: 250px;
+        overflow: auto;
+        background: var(--card);
+        border: 1px solid var(--bd);
+        border-radius: 12px;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+        z-index: 25;
+      }
+      .cbi {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .cbi .th {
+        width: 30px;
+        height: 30px;
+        margin: 0;
+      }
+      .cbi:hover {
+        background: var(--bg);
+      }
+      .cbi small {
+        margin-left: auto;
+        color: var(--mu);
+        font-size: 11px;
+      }
+      .xfm > button {
+        grid-column: 1/-1;
+      }
+      @media (min-width: 700px) {
+        .xfm {
+          grid-template-columns: 2.2fr 1.1fr 1.1fr auto;
+        }
+        .cbx {
+          grid-column: 1/-1;
+        }
+        .xfm > button {
+          grid-column: auto;
+        }
+      }
+      .tart {
+        position: relative;
+      }
+      .fd2 {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #fff;
+        padding: 4px;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+        animation: fl 4s ease-in-out infinite;
+      }
+      .fd2 img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        display: block;
+      }
+      .tl a {
+        display: flex !important;
+        gap: 16px;
+        align-items: flex-start;
+        position: relative;
+        border: 0 !important;
+        padding: 10px 0 24px !important;
+        opacity: 0;
+        transform: translateX(36px);
+        transition:
+          opacity 0.6s,
+          transform 0.6s;
+      }
+      .tl a.in {
+        opacity: 1;
+        transform: none;
+      }
+      .tn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f59f00, #e8590c);
+        color: #fff;
+        font-weight: 800;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        box-shadow: 0 6px 14px rgba(232, 89, 12, 0.4);
+        transition: transform 0.3s;
+        z-index: 1;
+      }
+      .tl a:hover .tn {
+        transform: scale(1.18) rotate(-10deg);
+      }
+      .tl a:hover h3 {
+        color: #e8590c;
+      }
+      .tl a.in .tn {
+        animation: pulse 2.4s ease-in-out infinite;
+      }
+      .tl a:not(:last-child)::before {
+        content: "";
+        position: absolute;
+        left: 21px;
+        top: 54px;
+        bottom: 0;
+        width: 3px;
+        border-radius: 2px;
+        background: linear-gradient(180deg, #f59f00, #2f9e44);
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 0.8s 0.35s;
+      }
+      .tl a.in:not(:last-child)::before {
+        transform: scaleY(1);
+      }
+      .rec {
+        position: relative;
+      }
+      .rec::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        height: 3px;
+        width: 90px;
+        background: linear-gradient(90deg, #f59f00, #e8590c);
+        border-radius: 2px;
+        animation: grow 1.2s both;
+      }
+      @keyframes grow {
+        from {
+          width: 0;
+        }
+      }
+
+      .vsc {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .vsc select {
+        flex: 1;
+      }
+      .vsc .sm {
+        flex: none;
+        padding: 9px 12px;
+      }
+      .arena {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 10px;
+        align-items: center;
+        margin: 16px 0;
+      }
+      .fcrd {
+        position: relative;
+        border-radius: 20px;
+        padding: 16px 10px;
+        text-align: center;
+        color: #fff;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+        transition: transform 0.4s;
+      }
+      .fa {
+        background: linear-gradient(135deg, #f59f00, #e8590c);
+        animation: slideL 0.7s both;
+      }
+      .fb2 {
+        background: linear-gradient(135deg, #339af0, #5f3dc4);
+        animation: slideR 0.7s both;
+      }
+      .fwin {
+        transform: scale(1.06);
+        outline: 4px solid #ffd43b;
+        z-index: 1;
+      }
+      .fimg {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        background: #fff;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+      }
+      .fnm {
+        font-size: 19px;
+        font-weight: 800;
+        margin-top: 6px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+      }
+      .fpr {
+        font-weight: 700;
+        font-size: 15px;
+      }
+      .fct {
+        font-size: 12px;
+        opacity: 0.9;
+      }
+      .fcr {
+        position: absolute;
+        top: -16px;
+        left: 50%;
+        margin-left: -20px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #ffd43b;
+        color: #7a4b00;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        animation: drop 0.8s 0.5s both;
+      }
+      .vsbdg {
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        background: #0d0d0d;
+        color: #fff;
+        font-weight: 900;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 0 4px #f03e3e;
+        animation: vsp 1.4s ease-in-out infinite;
+      }
+      @keyframes slideL {
+        from {
+          opacity: 0;
+          transform: translateX(-60px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes slideR {
+        from {
+          opacity: 0;
+          transform: translateX(60px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes drop {
+        from {
+          opacity: 0;
+          transform: translateY(-30px) rotate(-30deg);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes vsp {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+      }
+      .vr {
+        margin: 12px 0;
+        animation: up 0.5s both;
+      }
+      .vl2 {
+        text-align: center;
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--hd);
+        margin-bottom: 4px;
+      }
+      .vbars {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+        align-items: center;
+      }
+      .vbl {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .vbr {
+        display: flex;
+      }
+      .vbar {
+        height: 30px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 0 12px;
+        color: #fff;
+        font-weight: 700;
+        font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+        transition: width 1.1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        opacity: 0.78;
+      }
+      .vbl .vbar {
+        justify-content: flex-end;
+        border-radius: 15px 4px 4px 15px;
+        background: linear-gradient(90deg, #e8590c, #f59f00);
+      }
+      .vbr .vbar {
+        border-radius: 4px 15px 15px 4px;
+        background: linear-gradient(90deg, #339af0, #5f3dc4);
+      }
+      .vbar.vw {
+        opacity: 1;
+        box-shadow:
+          0 0 0 3px #ffd43b,
+          0 6px 14px rgba(0, 0, 0, 0.25);
+      }
+      .cr {
+        display: inline-flex;
+        color: #ffd43b;
+      }
+      .vban {
+        margin-top: 16px;
+        border-radius: 20px;
+        padding: 18px;
+        text-align: center;
+        color: #fff;
+        background: linear-gradient(135deg, #2f9e44, #94d82d);
+        animation: pop 0.7s 0.6s both;
+      }
+      .vtie {
+        background: linear-gradient(135deg, #868e96, #adb5bd);
+      }
+      .vcrw {
+        display: inline-flex;
+        color: #ffd43b;
+        animation: fl 2.5s ease-in-out infinite;
+      }
+      .vwn {
+        font-size: 26px;
+        font-weight: 900;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      }
+      .vsub {
+        font-size: 14px;
+        opacity: 0.95;
+        margin-bottom: 8px;
+      }
+      .vpills {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+      }
+      .vpill {
+        background: rgba(0, 0, 0, 0.22);
+        border-radius: 999px;
+        padding: 4px 14px;
+        font-size: 13px;
+        font-weight: 600;
+        animation: pop 0.5s both;
+      }
+      @media (max-width: 560px) {
+        .fimg {
+          width: 64px;
+          height: 64px;
+        }
+        .fnm {
+          font-size: 15px;
+        }
+        .vsbdg {
+          width: 44px;
+          height: 44px;
+          font-size: 14px;
+        }
+        .arena {
+          gap: 6px;
+        }
+        .vbar {
+          font-size: 11px;
+          padding: 0 8px;
+        }
+      }
+
+      .lbn {
+        font-size: 46px;
+        font-weight: 900;
+        text-align: center;
+        line-height: 1.1;
+        background: linear-gradient(90deg, #f59f00, #e8590c);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin: 6px 0 0;
+      }
+      .lbq {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 6px;
+      }
+      .ltabs {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 12px 0;
+      }
+      .ltab {
+        padding: 6px 16px;
+        border-radius: 999px;
+        border: 2px solid var(--bd);
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 14px;
+        transition: all 0.25s;
+      }
+      .ltab:hover {
+        border-color: #f59f00;
+      }
+      .ltab.on {
+        background: linear-gradient(135deg, #f59f00, #e8590c);
+        color: #fff;
+        border-color: transparent;
+        transform: scale(1.06);
+      }
+      .lwarn {
+        background: #fff3bf;
+        color: #7a4b00;
+        border: 2px dashed #f59f00;
+        border-radius: 12px;
+        padding: 10px 14px;
+        margin: 8px 0;
+        font-weight: 600;
+      }
+      .lcards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+        margin: 12px 0;
+      }
+      .lc {
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid var(--bd);
+        background: var(--card);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        animation: up 0.6s both;
+        transition: transform 0.3s;
+      }
+      .lc:hover {
+        transform: translateY(-6px);
+      }
+      .lch {
+        background: var(--mc);
+        color: #fff;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+      }
+      .lch .pr {
+        margin-left: auto;
+        background: rgba(255, 255, 255, 0.28);
+        border-radius: 999px;
+        padding: 2px 14px;
+        font-size: 18px;
+        font-weight: 800;
+      }
+      .lcb {
+        padding: 12px 14px;
+      }
+      .lcn {
+        font-weight: 800;
+        font-size: 17px;
+        margin-bottom: 6px;
+      }
+
+      .gprog {
+        margin: 14px 0;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: var(--card);
+        border: 2px dashed #f59f00;
+        animation: up 0.4s both;
+      }
+      .gpt {
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--hd);
+      }
+      .gpb {
+        height: 12px;
+        border-radius: 8px;
+        background: var(--bd);
+        overflow: hidden;
+      }
+      .gpf {
+        height: 100%;
+        width: 0;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #f59f00, #e8590c, #2f9e44);
+        background-size: 200% 100%;
+        animation: shine 1.2s linear infinite;
+        transition: width 0.5s;
+      }
+      @keyframes shine {
+        to {
+          background-position: -200% 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="bar">
+        <a class="brand" href="#top"
+          ><span class="logo"
+            ><svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path
+                d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+              /></svg></span
+          >Bazar Budget</a
+        >
+        <nav>
+          <a href="#me" data-i="n1"></a><a href="#foods" data-i="n2"></a
+          ><a href="#plan" data-i="n3"></a><a href="#student" data-i="n6"></a
+          ><a href="#lowx" data-i="n10"></a><a href="#protein" data-i="n4"></a
+          ><a href="#vsx" data-i="n9"></a><a href="#cards" data-i="n8"></a
+          ><a href="#prices" data-i="n5"></a>
+        </nav>
+        <div class="sw">
+          <input id="q" type="search" data-p="search" autocomplete="off" />
+          <div id="sug" class="sug"></div>
+          <button id="lg">EN</button><button id="th" aria-label="theme"></button
+          ><a href="#plan" aria-label="plan"
+            ><svg
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path
+                d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+              /></svg
+          ></a>
+        </div>
+      </div>
+    </header>
+    <section class="hero" id="top">
+      <div class="hin">
+        <div class="ht">
+          <span class="pill">FoodSphere AI · Nutrition Intelligence</span>
+          <h1 data-i="h1"></h1>
+          <p data-i="hh"></p>
+          <div class="cta">
+            <a class="b1" href="#plan" data-i="cta1"></a
+            ><a class="b2" href="#student" data-i="cta2"></a>
+          </div>
+          <div class="hc">
+            <span data-i="c1"></span><span data-i="c2"></span
+            ><span data-i="c3"></span>
+          </div>
+        </div>
+        <div class="hf" id="hfd"></div>
+      </div>
+    </section>
+    <div class="mq"><div class="mqi" id="mq"></div></div>
+    <main>
+      <section class="card" id="me" style="--sc: #f08c00">
+        <h2>
+          <img class="sh-i" data-pic="me" alt="" /><span data-i="n1"></span>
+        </h2>
+        <div class="grid">
+          <div>
+            <label data-i="g"></label
+            ><select id="g">
+              <option value="" data-i="gs"></option>
+              <option value="m" data-i="male"></option>
+              <option value="f" data-i="female"></option>
+            </select>
+          </div>
+          <div>
+            <label data-i="age"></label
+            ><input id="age" type="number" min="1" max="100" value="25" />
+          </div>
+          <div>
+            <label data-i="w"></label
+            ><input id="w" type="number" min="10" max="250" value="60" />
+          </div>
+          <div>
+            <label data-i="h"></label>
+            <div class="hh">
+              <select id="hf"></select
+              ><select id="hi"></select>
+            </div>
+          </div>
+          <div>
+            <label data-i="act"></label
+            ><select id="act">
+              <option value="0" data-i="a1"></option>
+              <option value="1" data-i="a2"></option>
+              <option value="2" data-i="a3"></option>
+            </select>
+          </div>
+          <div>
+            <label data-i="size"></label
+            ><input id="size" type="number" min="1" max="12" value="4" />
+          </div>
+          <div>
+            <label id="bl"></label
+            ><input id="budget" type="number" min="50" step="50" value="3000" />
+          </div>
+          <div>
+            <label data-i="per"></label
+            ><select id="per">
+              <option value="0" data-i="p1"></option>
+              <option value="1" data-i="p2" selected></option>
+              <option value="2" data-i="p3"></option>
+            </select>
+          </div>
+        </div>
+      </section>
+      <section class="card" id="foods" style="--sc: #2f9e44">
+        <h2>
+          <img class="sh-i" data-pic="13" alt="" /><span data-i="n2"></span>
+        </h2>
+        <div class="two">
+          <div>
+            <h3 data-i="eat"></h3>
+            <p class="warn" data-i="eatH"></p>
+            <div class="chips" id="eat"></div>
+          </div>
+          <div>
+            <h3 data-i="avo"></h3>
+            <p class="warn" data-i="avoH"></p>
+            <div class="chips x" id="avo"></div>
+          </div>
+        </div>
+      </section>
+      <section id="plan">
+        <div class="card" style="--sc: #e8590c">
+          <h2>
+            <img class="sh-i" data-pic="0" alt="" /><span data-i="n3"></span>
+          </h2>
+          <p class="warn" data-i="planH"></p>
+          <button id="go"></button>
+          <p class="warn" id="dis"></p>
+        </div>
+        <div id="out"></div>
+      </section>
+      <section class="card" id="student" style="--sc: #7048e8">
+        <h2>
+          <img class="sh-i" data-pic="31" alt="" /><span data-i="stT"></span>
+        </h2>
+        <p class="warn" data-i="stD"></p>
+        <div id="spf"></div>
+        <div class="grid">
+          <div>
+            <label data-i="stB"></label
+            ><input id="sb" type="number" min="10" value="100" />
+          </div>
+          <div>
+            <label data-i="per"></label
+            ><select id="sp">
+              <option value="0" data-i="p1"></option>
+              <option value="1" data-i="p2"></option>
+            </select>
+          </div>
+        </div>
+        <label data-i="stM"></label>
+        <div class="chips" id="sm"></div>
+        <button id="sgo"></button>
+        <div id="sout"></div>
+      </section>
+      <section class="card" id="lowx" style="--sc: #2b8a3e">
+        <h2>
+          <img class="sh-i" data-pic="5" alt="" /><span data-i="lowT"></span>
+        </h2>
+        <p class="warn" data-i="lowD"></p>
+        <div class="lbn" id="lbn"></div>
+        <input
+          class="lbs rng"
+          id="lbs"
+          type="range"
+          min="30"
+          max="400"
+          step="5"
+          value="100"
+        />
+        <div class="lbq" id="lbq"></div>
+        <div
+          class="chips"
+          id="lgl"
+          style="margin: 10px 0; justify-content: center"
+        ></div>
+        <div id="lowo"></div>
+      </section>
+      <section class="card" id="protein" style="--sc: #d6336c">
+        <h2>
+          <img class="sh-i" data-pic="23" alt="" /><span data-i="n4"></span>
+        </h2>
+        <div id="ppf"></div>
+        <div id="pout"></div>
+      </section>
+      <section class="card" id="vsx" style="--sc: #e03131">
+        <h2>
+          <img class="sh-i" data-pic="24" alt="" /><span data-i="vsT"></span>
+        </h2>
+        <p class="warn" data-i="vsD"></p>
+        <div class="vsc">
+          <select id="vsa"></select
+          ><button id="vss" class="sm" aria-label="swap"></button
+          ><select id="vsb"></select>
+        </div>
+        <div class="chips" id="vsg" style="margin-top: 10px"></div>
+        <div id="vso"></div>
+      </section>
+      <section class="card" id="cards" style="--sc: #f59f00">
+        <h2>
+          <img class="sh-i" data-pic="25" alt="" /><span data-i="fcT"></span>
+        </h2>
+        <p class="warn" data-i="fcH"></p>
+        <div class="fcs" id="fcs"></div>
+      </section>
+      <section id="tips" style="margin: 26px 0">
+        <h2 class="rec" data-i="tipT"></h2>
+        <div class="tg">
+          <div class="tart">
+            <svg viewBox="0 0 320 320">
+              <rect width="320" height="320" fill="#e6efe8" />
+              <circle cx="150" cy="180" r="108" fill="#fff" />
+              <circle cx="150" cy="180" r="86" fill="#f6ecd2" />
+              <ellipse cx="128" cy="170" rx="30" ry="22" fill="#fff" />
+              <circle cx="128" cy="170" r="11" fill="#f2b705" />
+              <path
+                d="M160 146c22 0 38 14 38 33-22 3-40-9-38-33z"
+                fill="#3fa34d"
+              />
+              <circle cx="170" cy="214" r="13" fill="#d64545" />
+              <circle cx="116" cy="212" r="9" fill="#c58a00" />
+              <rect
+                x="204"
+                y="28"
+                width="100"
+                height="64"
+                rx="9"
+                fill="#0d0d0d"
+              />
+              <rect
+                x="216"
+                y="46"
+                width="64"
+                height="7"
+                rx="3"
+                fill="#4cc27f"
+              />
+              <rect
+                x="216"
+                y="62"
+                width="44"
+                height="7"
+                rx="3"
+                fill="#fff"
+                opacity=".6"
+              />
+            </svg>
+          </div>
+          <div class="tl">
+            <a href="#student"
+              ><span class="tn">1</span>
+              <div>
+                <h3 data-i="tp1t"></h3>
+                <p data-i="tp1d"></p></div></a
+            ><a href="#cards"
+              ><span class="tn">2</span>
+              <div>
+                <h3 data-i="tp2t"></h3>
+                <p data-i="tp2d"></p></div></a
+            ><a href="#protein"
+              ><span class="tn">3</span>
+              <div>
+                <h3 data-i="tp3t"></h3>
+                <p data-i="tp3d"></p></div></a
+            ><a href="#plan"
+              ><span class="tn">4</span>
+              <div>
+                <h3 data-i="tp4t"></h3>
+                <p data-i="tp4d"></p></div
+            ></a>
+          </div>
+        </div>
+      </section>
+      <section class="card" id="prices" style="--sc: #0c8599">
+        <h2>
+          <img class="sh-i" data-pic="10" alt="" /><span data-i="n5"></span>
+        </h2>
+        <label data-i="src"></label>
+        <p><strong>Department of Agricultural Marketing (DAM)</strong> · <a href="https://market.dam.gov.bd/" target="_blank" rel="noopener">Official source</a></p>
+        <p class="warn" id="srcn"></p>
+        <button type="button" id="refreshprices" style="margin:8px 0;padding:10px 14px;border:0;border-radius:10px;cursor:pointer;font-weight:700;background:#0c8599;color:white">দাম আপডেট করুন / Refresh prices</button>
+        <p id="pricestatus" role="status" aria-live="polite" class="warn">সরকারি উৎস থেকে সর্বশেষ দাম আনার চেষ্টা করা হবে।</p>
+        <div class="scroll"><table id="ptab"></table></div>
+      </section>
+    </main>
+    <footer>
+      <div class="fs" id="fs"></div>
+      <div class="fg">
+        <div>
+          <h4>Bazar Budget</h4>
+          <p data-i="fd"></p>
+        </div>
+        <div>
+          <h4 data-i="f2"></h4>
+          <a href="#me" data-i="n1"></a><a href="#student" data-i="n6"></a
+          ><a href="#protein" data-i="n4"></a><a href="#cards" data-i="n8"></a>
+        </div>
+        <div>
+          <h4 data-i="f3"></h4>
+          <a href="https://market.dam.gov.bd" target="_blank" rel="noopener"
+            >DAM · market.dam.gov.bd</a
+          ><a href="https://tcb.gov.bd" target="_blank" rel="noopener"
+            >TCB · tcb.gov.bd</a
+          ><a
+            href="https://www.fao.org/fileadmin/templates/food_composition/documents/FCT_10_2_14_final_version.pdf"
+            target="_blank"
+            rel="noopener"
+            >FAO/INFS Food Composition Table, Bangladesh</a
+          >
+        </div>
+        <div>
+          <h4 data-i="f4"></h4>
+          <p>CloudCamp International AI Builders Congress</p>
+          <p>FoodSphere AI · Nutrition Intelligence</p>
+        </div>
+      </div>
+      <div class="fl" data-i="fdis"></div>
+    </footer>
+    <script>
+      var S = {
+        n1: ["আমি", "Me"],
+        n2: ["খাবার", "Foods"],
+        n3: ["প্ল্যান", "Plan"],
+        n4: ["প্রোটিন", "Protein"],
+        n5: ["দাম", "Prices"],
+        search: ["খাবার খুঁজুন...", "Search foods..."],
+        g: ["লিঙ্গ (জরুরি)", "Gender (important)"],
+        gs: ["— বেছে নিন —", "— choose —"],
+        male: ["পুরুষ", "Male"],
+        female: ["নারী", "Female"],
+        age: ["বয়স", "Age"],
+        w: ["ওজন (কেজি)", "Weight (kg)"],
+        h: ["উচ্চতা", "Height"],
+        ft: ["ফুট", "ft"],
+        inc: ["ইঞ্চি", "in"],
+        act: ["কাজকর্ম", "Activity"],
+        a1: ["কম (বসে কাজ)", "Low (sitting)"],
+        a2: ["মাঝারি", "Moderate"],
+        a3: ["বেশি (শারীরিক শ্রম)", "High (physical work)"],
+        size: ["পরিবারের সদস্য", "Family size"],
+        budget: ["সাপ্তাহিক বাজেট (টাকা)", "Weekly budget (BDT)"],
+        eat: ["যা খাই", "Foods I eat"],
+        avo: ["যা খাই না", "Foods I avoid"],
+        eatH: [
+          "কিছু না বাছলে সব খাবার ধরা হবে।",
+          "If none selected, all foods are used.",
+        ],
+        avoH: [
+          "এগুলো কখনো তালিকায় আসবে না।",
+          "These will never appear in the plan.",
+        ],
+        go: ["খাবারের তালিকা বানাও", "Create my meal plan"],
+        wait: ["তৈরি হচ্ছে...", "Creating..."],
+        dis: [
+          "এটা সাধারণ খাবার পরিকল্পনা ও আনুমানিক হিসাব, ডাক্তার বা পুষ্টিবিদের পরামর্শ নয়। গর্ভাবস্থা, রোগ বা শিশুর জন্য বিশেষজ্ঞের কাছে যান।",
+          "This is general meal planning with rough estimates, not medical or dietitian advice. For pregnancy, illness or children, ask a specialist.",
+        ],
+        planT: ["৭ দিনের খাবার", "7-day meals"],
+        dh: ["দিন", "Day"],
+        bf: ["সকাল", "Breakfast"],
+        ln: ["দুপুর", "Lunch"],
+        dn: ["রাত", "Dinner"],
+        shop: ["বাজারের list", "Shopping list"],
+        item: ["জিনিস", "Item"],
+        qty: ["পরিমাণ", "Quantity"],
+        cost: ["খরচ", "Cost"],
+        unit: ["একক", "Unit"],
+        price: ["দাম (৳)", "Price (৳)"],
+        tot: ["মোট আনুমানিক খরচ", "Estimated total"],
+        okb: ["বাজেটের মধ্যে ✓", "within budget ✓"],
+        ovb: [
+          "বাজেটের বেশি, খাবার কমান বা সস্তা বিকল্প নিন",
+          "over budget, reduce items or choose cheaper foods",
+        ],
+        nut: [
+          "পুষ্টি (জনপ্রতি, প্রতিদিন, আনুমানিক)",
+          "Nutrition (per person per day, approx.)",
+        ],
+        tgt: ["প্রোটিনের প্রয়োজন", "Protein needed"],
+        cal: ["ক্যালরি", "Calories"],
+        day: ["প্রতিদিন", "per day"],
+        got: ["এই তালিকায় প্রোটিন", "Protein in this plan"],
+        good: ["লক্ষ্যের কাছাকাছি ✓", "close to target ✓"],
+        low: [
+          "লক্ষ্যের চেয়ে কম, ডাল/ডিম/মাছ/মাংস বাড়ান",
+          "below target, add lentils/eggs/fish/meat",
+        ],
+        fill: [
+          "লিঙ্গ, বয়স, ওজন ও উচ্চতা দিন।",
+          "Fill gender, age, weight and height.",
+        ],
+        fem: [
+          "নারীদের জন্য: প্রোটিনের পাশাপাশি আয়রনও দরকার, ডাল, শাক ও মাছ-মাংস এতে সাহায্য করে (সাধারণ তথ্য)।",
+          "For women: iron matters too; lentils, leafy greens, fish and meat help (general info).",
+        ],
+        ben: ["প্রোটিনে কী উপকার?", "Why protein helps"],
+        b1: ["পেশি গঠন ও মেরামতে সাহায্য করে", "Helps build and repair muscle"],
+        b2: [
+          "রোগ প্রতিরোধ, এনজাইম ও হরমোন তৈরিতে লাগে",
+          "Needed for immunity, enzymes and hormones",
+        ],
+        b3: ["পেট বেশিক্ষণ ভরা রাখে", "Keeps you full for longer"],
+        b4: [
+          "বাড়ন্ত বয়সে বৃদ্ধিতে সাহায্য করে",
+          "Supports growth in growing ages",
+        ],
+        best: [
+          "সবচেয়ে সস্তায় প্রোটিন (১০০ টাকায় গ্রাম)",
+          "Cheapest protein (grams per 100 BDT)",
+        ],
+        pn: [
+          "প্রোটিন/১০০গ্রাম ও ক্যালরি WHO/FAO-র সাধারণ মান (০.৮৩ গ্রাম/কেজি/দিন থেকে) ও সাধারণ খাদ্য-উপাদান তালিকার আনুমানিক মান। রান্না ও নষ্ট অংশ ধরা হয়নি।",
+          "Needs follow the general WHO/FAO level (from 0.83 g/kg/day); food values are approximate typical composition. Cooking and waste are not counted.",
+        ],
+        src: ["দামের উৎস", "Price source"],
+        s1: ["সরকারি DAM থেকে সর্বশেষ পাওয়া দাম", "Latest available prices from official DAM"],
+        s2: ["ঢাকা (TCB)", "Dhaka (TCB)"],
+        n_nat: [
+          "সরকারি DAM-এর লাইভ তথ্য পাওয়া গেলে তা ব্যবহার হবে; অন্য পণ্যের দাম রেফারেন্স হতে পারে।",
+          "Live data from official DAM is used where matched; other items may be reference prices.",
+        ],
+        n_dhk: [
+          "TCB-এর ঢাকা বাজারদরের লাইভ সংযোগ চালু করা হয়নি।",
+          "A live TCB Dhaka price connection is not configured.",
+        ],
+        e1: [
+          "লিঙ্গ, বয়স, ওজন ও উচ্চতা দিন।",
+          "Please fill gender, age, weight and height.",
+        ],
+        e2: [
+          "আরও খাবার বাছুন (কমপক্ষে ৬টি লাগবে)।",
+          "Allow more foods (at least 6 needed).",
+        ],
+        e3: [
+          "প্ল্যান বানানো যাচ্ছে না। খাবারের পছন্দ বদলে দেখুন।",
+          "Could not build a plan. Try changing the food choices.",
+        ],
+        e4: [
+          "উত্তর তৈরি করা যায়নি। আবার চেষ্টা করুন।",
+          "Could not create the plan. Try again.",
+        ],
+        tag: ["", ""],
+        h1: ["বাজেটের মধ্যে সুষম খাবার", "Balanced meals within your budget"],
+        hh: [
+          "সরকারি বাজারদর দিয়ে প্রোটিন-ক্যালরির হিসাবসহ স্মার্ট ও সাশ্রয়ী খাবারের পরিকল্পনা।",
+          "Smart, affordable meal plans with protein and calorie tracking, built on official market prices.",
+        ],
+        c1: ["সরকারি দাম (DAM · টিসিবি)", "Official prices (DAM · TCB)"],
+        c2: ["প্রোটিন ও ক্যালরি হিসাব", "Protein and calorie tracking"],
+        c3: ["বাংলা · English", "বাংলা · English"],
+        per: ["হিসাবের সময়", "Period"],
+        p1: ["দৈনিক", "Daily"],
+        p2: ["সাপ্তাহিক", "Weekly"],
+        p3: ["মাসিক", "Monthly"],
+        bd: ["দৈনিক বাজেট (টাকা)", "Daily budget (BDT)"],
+        bw: ["সাপ্তাহিক বাজেট (টাকা)", "Weekly budget (BDT)"],
+        bm: ["মাসিক বাজেট (টাকা)", "Monthly budget (BDT)"],
+        sn: ["বিকেল", "Snack"],
+        prt: ["প্রোটিন", "protein"],
+        dtot: ["দিনের মোট (জনপ্রতি)", "Day total (per person)"],
+        pt0: ["১ দিনের খাবার", "1-day meals"],
+        pt1: ["৭ দিনের খাবার", "7-day meals"],
+        pt2: ["৭ দিনের খাবারের চক্র", "7-day meal cycle"],
+        np: [
+          "মাসের খরচ ও বাজার এই ৭ দিনের চক্র ঘুরিয়ে হিসাব করা হয়েছে।",
+          "Monthly cost and shopping repeat this 7-day cycle.",
+        ],
+        myd: [
+          "আমার দিনের খাবার: কত প্রোটিন হচ্ছে",
+          "My day: how much protein I get",
+        ],
+        addf: ["যোগ করুন", "Add"],
+        gm: ["গ্রাম", "grams"],
+        left: ["লক্ষ্য পূরণে আরও লাগবে", "Still needed"],
+        done: ["লক্ষ্য পূরণ ✓", "Target reached ✓"],
+        tot2: ["মোট", "Total"],
+        need: [
+          "এক খাবার দিয়ে লক্ষ্য পূরণে কত লাগে (আনুমানিক, কাঁচা ওজন)",
+          "Amount of one food to reach the target (approx., raw weight)",
+        ],
+        emp: ["এখনো কিছু যোগ করেননি।", "Nothing added yet."],
+        eggs: ["টি", "pcs"],
+        n6: ["ছাত্র", "Students"],
+        n8: ["প্রোটিন কার্ড", "Cards"],
+        stT: ["ছাত্রদের জন্য বিশেষ প্ল্যান", "Student special plan"],
+        stD: [
+          "কম টাকায় প্রোটিনসহ সেরা তালিকা। নিচে নিজের লিঙ্গ, বয়স, ওজন ও উচ্চতা দিন।",
+          "Best low-cost list with protein. Enter your own gender, age, weight and height below.",
+        ],
+        stM: ["কোন বেলা খাবেন?", "Which meals will you eat?"],
+        stB: ["বাজেট (টাকা)", "Budget (BDT)"],
+        stG: ["ছাত্রদের প্ল্যান বানাও", "Create student plan"],
+        per100: ["প্রতি ১০০ গ্রামে", "Per 100 g"],
+        forg: ["এই পরিমাণে", "For this amount"],
+        fcT: ["প্রোটিন কার্ড", "Protein cards"],
+        fcH: [
+          "কার্ডে চাপ দিন, উল্টে দেখুন। ১০০ টাকায় সবচেয়ে বেশি প্রোটিন যে খাবারে, সেগুলো আগে।",
+          "Tap a card to flip. Foods with the most protein per 100 BDT come first.",
+        ],
+        v100: ["১০০ টাকায় প্রোটিন", "Protein per 100 BDT"],
+        cg: ["শস্য", "Grain"],
+        cl: ["ডাল", "Pulse"],
+        cv: ["সবজি", "Vegetable"],
+        cm: ["মাংস", "Meat"],
+        cf: ["মাছ", "Fish"],
+        ce: ["ডিম", "Egg"],
+        cd: ["দুধ", "Dairy"],
+        co: ["অন্যান্য", "Other"],
+        tipT: ["প্রস্তাবিত", "Recommended"],
+        tp1t: [
+          "ছাত্রদের জন্য কম টাকায় প্রোটিন",
+          "Protein on a student budget",
+        ],
+        tp1d: [
+          "বাজেট আর কোন বেলা খাবেন বেছে নিন, বাকিটা প্ল্যান করে দেবে।",
+          "Pick your budget and meals; the plan does the rest.",
+        ],
+        tp2t: [
+          "১০০ টাকায় কোন খাবারে বেশি প্রোটিন?",
+          "Which food gives the most protein per 100 BDT?",
+        ],
+        tp2d: ["প্রোটিন কার্ড উল্টে দেখুন।", "Flip the protein cards to see."],
+        tp3t: [
+          "নিজের খাবারের প্রোটিন হিসাব করুন",
+          "Count the protein in your own meals",
+        ],
+        tp3d: [
+          "খাবার বাছলেই প্রোটিন দেখাবে, একাধিক যোগ করে মোট দেখুন।",
+          "Pick a food to see its protein, add several for a total.",
+        ],
+        tp4t: [
+          "বাজারে যাওয়ার আগে তালিকা বানান",
+          "Make a list before you shop",
+        ],
+        tp4d: [
+          "সাপ্তাহিক বা মাসিক প্ল্যান থেকে বাজারের তালিকা ও খরচ দেখুন।",
+          "Get a shopping list and cost from the weekly or monthly plan.",
+        ],
+        fd: [
+          "সরকারি দামে সাশ্রয়ী পুষ্টি-পরিকল্পনা।",
+          "Affordable nutrition planning with official prices.",
+        ],
+        f2: ["অন্বেষণ", "Explore"],
+        f3: ["তথ্যের উৎস", "Data sources"],
+        f4: ["প্রকল্প", "Project"],
+        fdis: [
+          "সাধারণ তথ্য ও আনুমানিক হিসাব, চিকিৎসা পরামর্শ নয়। খাবারের পুষ্টিমান আনুমানিক, সরকারি তালিকার সাথে মিলিয়ে নিন।",
+          "General information and rough estimates, not medical advice. Nutrient values are approximate; verify with the official table.",
+        ],
+        cta1: ["প্ল্যান বানাও", "Build my plan"],
+        cta2: ["ছাত্রদের প্ল্যান", "Student plan"],
+        addX: ["আরও জিনিস যোগ করুন", "Add more items"],
+        addXh: [
+          "তালিকা থেকে খাবার বেছে নিন, তারপর পরিমাণ আর দাম বাছুন। তালিকায় না থাকলে নিজের নামও লিখতে পারেন। খরচ মোটের সাথে যোগ হবে।",
+          "Pick a food from the list, then choose quantity and price. You can also type your own. The cost is added to the total.",
+        ],
+        xn: ["জিনিসের নাম", "Item name"],
+        xq: ["পরিমাণ", "Quantity"],
+        xp: ["মোট দাম (৳)", "Total price (৳)"],
+        sgs: ["অংশ", "Section"],
+        planH: [
+          "বাজেট ও পছন্দ দিয়ে পরিবারের খাবার ও বাজারের তালিকা বানান।",
+          "Build your family meal plan and shopping list from your budget and preferences.",
+        ],
+        wkT: [
+          "প্রতিদিনের প্রোটিন: কোনো দিনে চাপলে সেদিনের খাবার দেখুন (ড্যাশ দাগ = লক্ষ্য)",
+          "Protein per day: tap a day to see its meals (dashed line = target)",
+        ],
+        pp: ["জনপ্রতি", "per person"],
+        vb: ["বাজেট", "Budget"],
+        saved: ["বাঁচলো", "You save"],
+        over: ["বেশি", "Over by"],
+        vp: ["প্রোটিন", "Protein"],
+        goodv: ["লক্ষ্যে পৌঁছেছে", "On target"],
+        lowv: ["আরও প্রোটিন দরকার", "Needs more protein"],
+        tipL: ["শেফের টিপ", "Chef tip"],
+        dens: [
+          "প্রোটিন ঘনত্ব (১০০ গ্রামে ৩০ g = পূর্ণ)",
+          "Protein density (30 g per 100 g = full)",
+        ],
+        emp2: [
+          "উপরে খাবার ও গ্রাম বেছে ‘যোগ করুন’ চাপুন। একাধিক খাবার জুড়ে মোট দেখুন।",
+          "Pick a food and amount above, press Add, and combine several foods to see the total.",
+        ],
+        xs: [
+          "খাবার খুঁজুন বা তালিকা থেকে বাছুন ({n}টি)",
+          "Search or pick a food ({n} items)",
+        ],
+        qs0: ["— পরিমাণ বাছুন —", "— pick quantity —"],
+        ps0: ["— দাম বাছুন —", "— pick price —"],
+        po: ["অন্য দাম লিখুন", "Other price"],
+        n9: ["তুলনা", "Compare"],
+        vsT: ["খাবার বনাম খাবার", "Food vs Food"],
+        vsD: [
+          "দুটো খাবার বেছে দাম, ক্যালরি ও প্রোটিন মিলিয়ে দেখুন। কোনটা বেশি লাভজনক বলে দেবে।",
+          "Pick two foods and compare price, calories and protein. See which one is the better buy.",
+        ],
+        vg1: ["সামগ্রিক", "Overall"],
+        vg2: ["প্রোটিন", "Protein"],
+        vg3: ["শক্তি", "Energy"],
+        vg4: ["হালকা", "Light"],
+        vm1: ["দাম প্রতি ১০০ গ্রাম", "Price per 100 g"],
+        vm2: ["ক্যালরি প্রতি ১০০ গ্রাম", "Calories per 100 g"],
+        vm3: ["ক্যালরি প্রতি ১০০ টাকা", "Calories per 100 BDT"],
+        vm4: ["প্রোটিন প্রতি ১০০ গ্রাম", "Protein per 100 g"],
+        vm5: ["প্রোটিন প্রতি ১০০ টাকা", "Protein per 100 BDT"],
+        vwin: ["জিতেছে!", "wins!"],
+        vgl: ["লক্ষ্য", "Goal"],
+        vcheap: ["সস্তা", "cheaper"],
+        vless: ["কম", "less"],
+        vmore: ["বেশি", "more"],
+        vdraw: ["সমান সমান!", "It is a tie!"],
+        vdrawd: [
+          "এই লক্ষ্যে দুটোই প্রায় সমান। অন্য লক্ষ্য বেছে দেখুন।",
+          "Both are about equal for this goal. Try another goal.",
+        ],
+        vnote: [
+          "কাঁচা ওজনে আনুমানিক হিসাব। সাধারণ তথ্য, চিকিৎসা পরামর্শ নয়।",
+          "Rough values on raw weight. General information, not medical advice.",
+        ],
+        vsc: ["স্কোর", "Score"],
+        n10: ["৩ বেলা", "3 meals"],
+        lowT: ["কম টাকায় ৩ বেলা", "3 meals on a small budget"],
+        lowD: [
+          "টাকার অঙ্ক বাছুন। সকাল, দুপুর ও রাতের খাবার নিজে থেকেই সাজানো হবে, দাম, ক্যালরি ও প্রোটিনসহ। AI লাগে না, তাই সাথে সাথে দেখা যায়।",
+          "Choose an amount. Breakfast, lunch and dinner are arranged automatically with price, calories and protein. No AI wait, it updates instantly.",
+        ],
+        lbl: ["দৈনিক টাকা (জনপ্রতি)", "Daily amount (per person)"],
+        lopt: ["অপশন", "Option"],
+        lcost: ["মোট খরচ", "Total cost"],
+        lmin: [
+          "এই টাকায় তিন বেলা কঠিন। কমপক্ষে ৳{n} লাগবে। সবচেয়ে সস্তা তালিকা দেখানো হলো।",
+          "Three meals are hard on this amount. You need at least ৳{n}. Showing the cheapest plan.",
+        ],
+        lmin0: [
+          "এই খাবারগুলো বাদ দিয়ে তালিকা বানানো যাচ্ছে না। 'যা খাই না' থেকে কিছু সরান।",
+          "No plan possible without these foods. Remove some from 'Foods I avoid'.",
+        ],
+        lnote: [
+          "পরিমাণ জনপ্রতি ও আনুমানিক। দাম ওপরের দামের উৎস অনুযায়ী। মসলা ও জ্বালানি ধরা হয়নি। রিং-এর লক্ষ্য সাধারণ প্রাপ্তবয়স্কের আনুমানিক ২০০০ kcal ও ৬০ g প্রোটিন।",
+          "Amounts are per person and approximate. Prices follow the source above. Spices and fuel are not counted. Ring targets are a typical adult: about 2000 kcal and 60 g protein.",
+        ],
+        gen: ["আপনার প্ল্যান সাজানো হচ্ছে", "Preparing your plan"],
+        fb: ["", ""],
+        tipf: [
+          "ডাল ও শাক আয়রনের ভালো উৎস, এগুলো নিয়মিত রাখুন। প্রোটিনের জন্য ডিম ও মাছও যোগ করুন।",
+          "Lentils and leafy greens are good iron sources, so keep them regular. Add eggs and fish for protein.",
+        ],
+        tipm: [
+          "ডাল, ডিম ও ছোট মাছ কম দামে ভালো প্রোটিন দেয়। সবজি রাখলে পেট ভরা থাকে।",
+          "Dal, eggs and small fish give good protein at a low price. Vegetables keep you full.",
+        ],
+      };
+      // [cat,bn,en,unit,nat,dhaka,protein/100g,kcal/100g]
+      var RAW = [
+        ["g", "চাল (মোটা)", "Rice (coarse)", "k", 49, 53, 7, 360],
+        ["g", "চাল (মাঝারি)", "Rice (medium)", "k", 57, 61, 7, 360],
+        ["g", "আটা", "Atta flour", "k", 50, 50, 11, 340],
+        ["l", "মসুর ডাল", "Masoor dal", "k", 109, 118, 25, 350],
+        ["l", "মুগ ডাল", "Mung dal", "k", 175, 150, 24, 345],
+        ["l", "ছোলা", "Chickpea", "k", 104, 118, 20, 360],
+        ["l", "খেসারি ডাল", "Khesari dal", "k", 85, 0, 25, 345],
+        ["v", "আলু", "Potato", "k", 36, 28, 2, 77],
+        ["v", "বেগুন", "Eggplant", "k", 59, 105, 1, 25],
+        ["v", "পটল", "Pointed gourd", "k", 49, 0, 2, 20],
+        ["v", "মিষ্টি কুমড়া", "Pumpkin", "k", 50, 0, 1, 26],
+        ["v", "ঢেঁড়স", "Okra", "k", 52, 0, 2, 33],
+        ["v", "শসা", "Cucumber", "k", 47, 80, 0.7, 15],
+        ["v", "টমেটো", "Tomato", "k", 95, 0, 0.9, 18],
+        ["v", "করলা", "Bitter gourd", "k", 62, 0, 1, 20],
+        ["v", "লাল শাক", "Red spinach", "k", 28, 0, 2.5, 25],
+        ["v", "পুঁই শাক", "Malabar spinach", "k", 23, 0, 2, 20],
+        ["v", "পেঁয়াজ", "Onion", "k", 45, 55, 1.1, 40],
+        ["v", "রসুন", "Garlic", "k", 90, 120, 6, 149],
+        ["v", "আদা", "Ginger", "k", 152, 135, 1.8, 80],
+        ["v", "কাঁচা মরিচ", "Green chili", "k", 114, 150, 2, 40],
+        ["e", "ডিম", "Egg", "h", 50, 49, 12.5, 143],
+        ["d", "দুধ", "Milk", "l", 68, 0, 3.3, 61],
+        ["m", "ব্রয়লার মুরগি", "Broiler chicken", "k", 168, 185, 20, 190],
+        ["m", "গরুর মাংস", "Beef", "k", 754, 825, 21, 200],
+        ["f", "রুই মাছ", "Rui fish", "k", 375, 375, 17, 97],
+        ["f", "তেলাপিয়া মাছ", "Tilapia", "k", 193, 0, 18, 96],
+        ["f", "পাঙ্গাস মাছ", "Pangas", "k", 188, 0, 15, 130],
+        ["o", "সয়াবিন তেল", "Soybean oil", "l", 194, 195, 0, 884],
+        ["o", "চিনি", "Sugar", "k", 111, 113, 0, 387],
+        ["o", "লবণ", "Salt", "k", 40, 41, 0, 0],
+        ["o", "কলা", "Banana", "h", 43, 0, 1.2, 90],
+      ];
+      var IT = RAW.map(function (r, i) {
+        return {
+          i: i,
+          c: r[0],
+          bn: r[1],
+          en: r[2],
+          u: r[3],
+          pn: r[4],
+          pd: r[5],
+          pr: r[6],
+          kc: r[7],
+          g: r[3] == "h" ? (r[0] == "e" ? 200 : 400) : 1000,
+        };
+      });
+      var UL = { k: ["কেজি", "kg"], l: ["লিটার", "L"], h: ["হালি", "4 pcs"] };
+      var L = "bn",
+        SRC = "nat",
+        CP = {},
+        EAT = {},
+        AVO = {},
+        LAST = null;
+      var $ = function (i) {
+        return document.getElementById(i);
+      };
+      function t(k) {
+        return S[k][L == "bn" ? 0 : 1];
+      }
+      function nm(x) {
+        return L == "bn" ? x.bn : x.en;
+      }
+      function ul(x) {
+        return UL[x.u][L == "bn" ? 0 : 1];
+      }
+      function pr(x) {
+        return CP[x.i] != null ? CP[x.i] : SRC == "nat" ? x.pn : x.pd;
+      }
+      function el(tg, tx, cl) {
+        var e = document.createElement(tg);
+        if (tx !== undefined) e.textContent = tx;
+        if (cl) e.className = cl;
+        return e;
+      }
+      function qf(x) {
+        var q = $("q").value.trim().toLowerCase();
+        return !q || (x.bn + x.en).toLowerCase().indexOf(q) >= 0;
+      }
+      var IC = {
+        crown: '<path d="M3 18L2 7l5 4 5-7 5 7 5-4-1 11z"/>',
+        swap: '<path d="M7 7h13l-4-4M17 17H4l4 4"/>',
+        check: '<polyline points="20 6 9 17 4 12"/>',
+        alert: '<circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/>',
+        bulb: '<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/>',
+        shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+        clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+        trend: '<path d="M23 6l-9.5 9.5-5-5L1 18M17 6h6v6"/>',
+        sunrise:
+          '<path d="M17 18a5 5 0 0 0-10 0M12 2v7M4.22 10.22l1.42 1.42M1 18h2M21 18h2M18.36 11.64l1.42-1.42M23 22H1M8 6l4-4 4 4"/>',
+        sun: '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>',
+        moon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+        user: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+        food: '<path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/>',
+        zap: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+        wallet:
+          '<rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/>',
+        list: '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+        cart: '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>',
+        cap: '<path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+      };
+      var GL = {
+        g: '<path d="M12 22V9M12 9C10 8 9 6 9 4c2 1 3 3 3 5zM12 9c2-1 3-3 3-5-2 1-3 3-3 5zM12 15c-2-1-3-3-3-5M12 15c2-1 3-3 3-5"/>',
+        l: '<ellipse cx="9" cy="9" rx="4" ry="5.5" transform="rotate(-25 9 9)"/><ellipse cx="15.5" cy="15" rx="4" ry="5.5" transform="rotate(-25 15.5 15)"/>',
+        v: '<path d="M5 19C5 10 11 5 20 5c0 9-5 15-14 15"/><path d="M5 19l8-8"/>',
+        m: '<circle cx="15.5" cy="8.5" r="5.5"/><path d="M11.5 12.5L4 20M3 17l4 4"/>',
+        f: '<path d="M2 12c4-6 11-6 15 0-4 6-11 6-15 0z"/><path d="M17 12l5-4v8z"/><circle cx="7" cy="11" r=".7"/>',
+        e: '<path d="M12 3c4 0 7 7 7 11a7 7 0 0 1-14 0c0-4 3-11 7-11z"/>',
+        d: '<path d="M9 2h6v4l3 4v12H6V10l3-4z"/><path d="M6 14h12"/>',
+        o: '<rect x="6" y="8" width="12" height="13" rx="2"/><path d="M8 3h8v5H8z"/>',
+      };
+      function sv(p, z) {
+        return (
+          '<svg viewBox="0 0 24 24" width="' +
+          z +
+          '" height="' +
+          z +
+          '" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+          p +
+          "</svg>"
+        );
+      }
+      function ic() {
+        document.querySelectorAll("[data-ic]").forEach(function (e) {
+          e.innerHTML = sv(IC[e.dataset.ic], 20);
+        });
+      }
+      function hd(n, tx) {
+        var h = el("h2"),
+          i = el("i", "", "ic");
+        i.innerHTML = sv(IC[n], 20);
+        h.append(i, tx);
+        return h;
+      }
+      var PIC = {};
+      (function () {
+        function dal(c, d, b, r) {
+          return [
+            b,
+            '<path d="M10 36h44a22 22 0 0 1-44 0z" fill="#8a5a2b"/><path d="M14 36c2-14 34-14 36 0z" fill="' +
+              c +
+              '"/><g fill="' +
+              d +
+              '">' +
+              [
+                [24, 31],
+                [32, 26],
+                [40, 31],
+                [30, 32],
+                [37, 27],
+              ]
+                .map(function (p) {
+                  return (
+                    '<circle cx="' +
+                    p[0] +
+                    '" cy="' +
+                    p[1] +
+                    '" r="' +
+                    r +
+                    '"/>'
+                  );
+                })
+                .join("") +
+              "</g>",
+          ];
+        }
+        function rice(c, b) {
+          return [
+            b,
+            '<path d="M10 36h44a22 22 0 0 1-44 0z" fill="' +
+              c +
+              '"/><path d="M14 36c2-14 34-14 36 0z" fill="#fff"/><g fill="#d8d2c0"><circle cx="26" cy="29" r="1.6"/><circle cx="34" cy="26" r="1.6"/><circle cx="41" cy="31" r="1.6"/></g>',
+          ];
+        }
+        function fish(a, c, b) {
+          return [
+            b,
+            '<path d="M8 32c8-14 28-14 38 0-10 14-30 14-38 0z" fill="' +
+              a +
+              '"/><path d="M46 32l12-10v20z" fill="' +
+              c +
+              '"/><circle cx="18" cy="29" r="2" fill="#222"/><path d="M14 37c8 4 18 4 24 0" stroke="#e8a33d" stroke-width="3" fill="none"/>',
+          ];
+        }
+        function lf(a, c, b) {
+          return [
+            b,
+            '<path d="M32 52V30" stroke="#5a7d2a" stroke-width="3"/><path d="M32 36C14 36 11 22 13 14c15 0 21 9 19 22z" fill="' +
+              a +
+              '"/><path d="M32 36c18 0 21-14 19-22-15 0-21 9-19 22z" fill="' +
+              c +
+              '"/>',
+          ];
+        }
+        function bt(c, l, cap, b) {
+          return [
+            b,
+            '<path d="M26 10h12v8l6 8v28H20V26l6-8z" fill="' +
+              c +
+              '" stroke="#8aa0b4" stroke-width="2"/><rect x="20" y="34" width="24" height="14" fill="' +
+              l +
+              '"/><rect x="26" y="8" width="12" height="5" fill="' +
+              cap +
+              '"/>',
+          ];
+        }
+        var A = [
+          rice("#d9534f", "#fdf3dc"),
+          rice("#3b82c4", "#fdf3dc"),
+          [
+            "#f5ead2",
+            '<path d="M18 22l6-8h16l6 8v28H18z" fill="#d8b573"/><path d="M24 14l4 6h8l4-6z" fill="#c49a52"/><path d="M32 26v16M32 32c-3-1-4-3-4-5 3 1 4 3 4 5zM32 32c3-1 4-3 4-5-3 1-4 3-4 5z" stroke="#7a5420" fill="none" stroke-width="2"/>',
+          ],
+          dal("#e8742a", "#c4501a", "#fff0e0", 2),
+          dal("#9bc53d", "#6b8e23", "#eef6dc", 2),
+          dal("#e0b45c", "#b98a2e", "#fbf1da", 3),
+          dal("#d8c24a", "#a89420", "#fbf7d9", 2),
+          [
+            "#f6ead7",
+            '<ellipse cx="32" cy="34" rx="20" ry="15" fill="#c8924f"/><g fill="#8e6330"><circle cx="24" cy="30" r="2"/><circle cx="38" cy="28" r="2"/><circle cx="32" cy="40" r="2"/><circle cx="42" cy="38" r="1.6"/></g>',
+          ],
+          [
+            "#efe6f6",
+            '<path d="M20 48c-8-10 0-28 16-28 8 0 10 8 4 14-4 8-10 16-20 14z" fill="#5b2c83"/><path d="M34 18l8-5 2 9-7 3z" fill="#3fa34d"/>',
+          ],
+          [
+            "#e8f3e4",
+            '<ellipse cx="32" cy="34" rx="12" ry="21" fill="#7fb85a" transform="rotate(30 32 34)"/><path d="M26 20l18 26M31 18l16 22" stroke="#e9f5d8" stroke-width="2"/>',
+          ],
+          [
+            "#fdeccf",
+            '<circle cx="32" cy="36" r="18" fill="#f08c00"/><path d="M32 18v36M22 22c-4 8-4 20 0 28M42 22c4 8 4 20 0 28" stroke="#c46a00" fill="none" stroke-width="2"/><path d="M30 18l2-7 4 7z" fill="#3a7d2a"/>',
+          ],
+          [
+            "#e6f3df",
+            '<path d="M14 48c8-4 22-18 30-30l5 4c-8 14-20 26-32 30z" fill="#4c9a3a"/><path d="M44 18l6 4" stroke="#2f6b25" stroke-width="3"/><path d="M22 52c6-2 14-12 20-20" stroke="#7fc16a" stroke-width="2" fill="none"/>',
+          ],
+          [
+            "#e3f4e0",
+            '<g transform="rotate(-25 32 32)"><rect x="8" y="24" width="48" height="16" rx="8" fill="#3d8f3a"/><g fill="#bfe3a8"><circle cx="20" cy="30" r="1.5"/><circle cx="32" cy="34" r="1.5"/><circle cx="44" cy="30" r="1.5"/></g></g>',
+          ],
+          [
+            "#fde6e3",
+            '<circle cx="32" cy="36" r="18" fill="#e53935"/><path d="M32 20l-8 4 6 2-2 5 4-3 4 3-2-5 6-2z" fill="#2e7d32"/>',
+          ],
+          [
+            "#e6f1dc",
+            '<path d="M10 42c10-16 30-24 44-14-4 14-22 24-44 14z" fill="#3f8a2f"/><g fill="#7cc760"><circle cx="24" cy="40" r="2.2"/><circle cx="33" cy="34" r="2.2"/><circle cx="42" cy="31" r="2.2"/><circle cx="35" cy="41" r="2.2"/></g>',
+          ],
+          lf("#c2324f", "#7a9e3a", "#fbe6ea"),
+          lf("#3f9a45", "#2e7d32", "#e6f3e3"),
+          [
+            "#f3e6f0",
+            '<path d="M32 10c1 6 3 8 3 11 10 4 16 12 12 22-4 8-24 8-28 0-4-10 2-18 12-22 0-3 0-5 1-11z" fill="#b45a8c"/><path d="M26 28c-4 8-2 16 0 20M38 28c4 8 2 16 0 20" stroke="#e9c3dc" fill="none" stroke-width="2"/>',
+          ],
+          [
+            "#f3f0e6",
+            '<path d="M32 10c1 6 3 8 3 11 12 4 16 14 10 24-4 6-26 6-30 0-6-10-2-20 10-24 0-3 0-5 1-11z" fill="#fff" stroke="#c9c2a8" stroke-width="2"/><path d="M26 30c-2 8 0 14 2 18M38 30c2 8 0 14-2 18" stroke="#c9c2a8" fill="none" stroke-width="2"/>',
+          ],
+          [
+            "#f6ecd8",
+            '<path d="M12 42c4-6 8-4 10-8 2-6 8-6 10-2 2 4 8 2 12 8 2 6-4 10-10 8-6-2-10 2-16 0-4-2-8-4-6-6z" fill="#d1a56a"/><circle cx="26" cy="36" r="2" fill="#9c7440"/><circle cx="42" cy="40" r="2" fill="#9c7440"/>',
+          ],
+          [
+            "#e4f3df",
+            '<path d="M12 46c6 6 28 4 36-20" stroke="#2f8f2f" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M48 24l6-8" stroke="#1f6b1f" stroke-width="4" stroke-linecap="round"/>',
+          ],
+          [
+            "#fdf3d6",
+            '<path d="M32 9c10 0 17 17 17 27a17 17 0 0 1-34 0c0-10 7-27 17-27z" fill="#f1d6aa" stroke="#d4b27a" stroke-width="2"/><ellipse cx="26" cy="26" rx="4" ry="7" fill="#fff" opacity=".6" transform="rotate(20 26 26)"/>',
+          ],
+          bt("#fff", "#4a90d9", "#d64545", "#e6f0fa"),
+          [
+            "#fde9dc",
+            '<ellipse cx="38" cy="26" rx="16" ry="14" fill="#d9822b" transform="rotate(-30 38 26)"/><path d="M28 34L16 46" stroke="#f5f0e6" stroke-width="5" stroke-linecap="round"/><circle cx="13" cy="48" r="4" fill="#f5f0e6"/><circle cx="19" cy="52" r="4" fill="#f5f0e6"/>',
+          ],
+          [
+            "#fbe3e3",
+            '<path d="M10 34c0-14 20-22 34-16 12 6 10 22-2 28-14 6-32 2-32-12z" fill="#c62828"/><g fill="#f4b9b9"><ellipse cx="28" cy="30" rx="6" ry="2.5"/><ellipse cx="40" cy="38" rx="5" ry="2"/></g><circle cx="20" cy="40" r="4" fill="#f5f0e6"/>',
+          ],
+          fish("#9db4c0", "#7a95a5", "#e3f0fb"),
+          fish("#aab4b9", "#d6534f", "#e9f0f3"),
+          fish("#cfd8dc", "#78909c", "#eef2f4"),
+          bt("#f5c518", "#fff", "#2e7d32", "#fdf6d3"),
+          [
+            "#eef3fb",
+            '<rect x="10" y="32" width="19" height="19" fill="#fff" stroke="#b9c6dc" stroke-width="2"/><rect x="33" y="32" width="19" height="19" fill="#fff" stroke="#b9c6dc" stroke-width="2"/><rect x="21" y="12" width="19" height="19" fill="#fff" stroke="#b9c6dc" stroke-width="2"/>',
+          ],
+          [
+            "#eef0f3",
+            '<path d="M22 26h20l4 26H18z" fill="#fff" stroke="#9aa5b1" stroke-width="2"/><path d="M22 26c0-12 20-12 20 0z" fill="#9aa5b1"/><g fill="#fff"><circle cx="28" cy="20" r="1.4"/><circle cx="32" cy="17" r="1.4"/><circle cx="36" cy="20" r="1.4"/></g>',
+          ],
+          [
+            "#fff7cf",
+            '<path d="M12 20c4 24 24 36 42 22-14 4-28-4-30-24z" fill="#f6c90e" stroke="#c9a000" stroke-width="2"/><path d="M12 20l-2-7" stroke="#6b4e00" stroke-width="3"/>',
+          ],
+        ];
+        A.forEach(function (a, i) {
+          PIC[i] =
+            "data:image/svg+xml;utf8," +
+            encodeURIComponent(
+              '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="' +
+                a[0] +
+                '"/>' +
+                a[1] +
+                "</svg>",
+            );
+        });
+      })();
+      function dot(x, c) {
+        if (!PIC[x.i]) return document.createTextNode("");
+        var i = document.createElement("img");
+        i.className = "th" + (c ? " " + c : "");
+        i.src = PIC[x.i];
+        i.alt = "";
+        return i;
+      }
+      function hsel() {
+        ["", "s", "p"].forEach(function (px) {
+          var d = pids(px),
+            f = $(d[3]),
+            i = $(d[4]),
+            fv = f.value || "5",
+            iv = i.value || "3",
+            n;
+          f.textContent = "";
+          i.textContent = "";
+          for (n = 4; n <= 9; n++) {
+            var o = el("option", n + " " + t("ft"));
+            o.value = n;
+            f.append(o);
+          }
+          for (n = 0; n <= 11; n++) {
+            var q = el("option", n + " " + t("inc"));
+            q.value = n;
+            i.append(q);
+          }
+          f.value = fv;
+          i.value = iv;
+        });
+      }
+      function bl() {
+        $("bl").textContent = t(["bd", "bw", "bm"][+$("per").value]);
+      }
+      function chips(id, M, O) {
+        var b = $(id);
+        b.textContent = "";
+        IT.forEach(function (x) {
+          if (pr(x) <= 0 || !qf(x)) return;
+          var l = el("label", "", "chip" + (M[x.i] ? " on" : "")),
+            c = document.createElement("input");
+          c.type = "checkbox";
+          c.checked = !!M[x.i];
+          c.onchange = function () {
+            M[x.i] = c.checked;
+            if (c.checked) O[x.i] = false;
+            foods();
+          };
+          l.append(c, dot(x), nm(x));
+          b.append(l);
+        });
+      }
+      function foods() {
+        chips("eat", EAT, AVO);
+        chips("avo", AVO, EAT);
+      }
+      function ptab() {
+        var T = $("ptab");
+        T.textContent = "";
+        var h = el("tr");
+        ["item", "unit", "price"].forEach(function (k) {
+          h.append(el("th", t(k)));
+        });
+        T.append(h);
+        IT.forEach(function (x) {
+          if (!qf(x)) return;
+          var r = el("tr"),
+            n = el("td"),
+            d = el("td"),
+            i = el("input");
+          i.type = "number";
+          i.min = 0;
+          i.value = pr(x);
+          i.oninput = function () {
+            CP[x.i] = Number(i.value) || 0;
+          };
+          n.append(dot(x), nm(x));
+          d.append(i);
+          r.append(n, el("td", ul(x)), d);
+          T.append(r);
+        });
+      }
+      // Live price updates come from DAM's publicly displayed official page.
+      // Only matched prices are replaced; unmatched items retain reference values.
+      async function refreshDAMPrices() {
+        var button = $("refreshprices"), status = $("pricestatus");
+        button.disabled = true;
+        button.style.opacity = "0.65";
+        status.textContent = L == "bn" ? "সরকারি বাজারদর আনা হচ্ছে…" : "Fetching official market prices…";
+        try {
+          var response = await fetch("/.netlify/functions/market-prices", { cache: "no-store" });
+          var data = await response.json();
+          if (!response.ok || !data.prices) throw new Error(data.error || "Price source unavailable");
+          var indexMap = { riceCoarse: 0, riceMedium: 1, atta: 2, mungDal: 4, potato: 7, onion: 17, garlic: 18, ginger: 19, chili: 20, egg: 21, chicken: 23, beef: 24, soybeanOil: 28, sugar: 29, salt: 30 };
+          Object.keys(indexMap).forEach(function (key) {
+            if (Number.isFinite(data.prices[key])) CP[indexMap[key]] = data.prices[key];
+          });
+          ptab();
+          var time = new Date(data.fetchedAt).toLocaleString(L == "bn" ? "bn-BD" : "en-GB", { dateStyle: "medium", timeStyle: "short" });
+          status.textContent = (L == "bn" ? "সরকারি DAM উৎস থেকে " : "Official DAM source: ") + data.count + (L == "bn" ? "টি পণ্যের দাম পাওয়া গেছে। সর্বশেষ সংগ্রহ: " : " matched price entries fetched. Last fetched: ") + time + (L == "bn" ? ". দেখানো দাম প্রকাশিত সীমার মাঝামাঝি; সব পণ্যের দাম লাইভ নাও হতে পারে।" : ". Prices are range midpoints; not every item may have a live match.");
+          var note = $("srcn");
+          note.textContent = L == "bn" ? "লাইভ দাম পাওয়া পণ্যে সরকারি DAM-এর তথ্য ব্যবহার করা হয়েছে। অন্য পণ্যে আনুমানিক রেফারেন্স দাম থাকতে পারে; কেনার আগে স্থানীয় দাম যাচাই করুন।" : "Matched items use official DAM prices. Other items may still use reference prices; verify locally before purchasing.";
+        } catch (error) {
+          status.textContent = L == "bn" ? "এখন DAM থেকে লাইভ দাম আনা যায়নি। নিচের কিছু দাম রেফারেন্স হিসেবে আছে—এগুলোকে আজকের নিশ্চিত দাম ধরে নেবেন না।" : "Could not fetch live DAM prices right now. Some values below are reference prices, not confirmed current prices.";
+        } finally {
+          button.disabled = false;
+          button.style.opacity = "1";
+        }
+      }
+      $("refreshprices").onclick = refreshDAMPrices;
+      function pids(px) {
+        return px
+          ? [px + "g", px + "age", px + "w", px + "hf", px + "hi", px + "act"]
+          : ["g", "age", "w", "hf", "hi", "act"];
+      }
+      function prof(px) {
+        var d = pids(px || ""),
+          g = $(d[0]).value,
+          a = +$(d[1]).value,
+          w = +$(d[2]).value,
+          h = (+$(d[3]).value * 12 + +$(d[4]).value) * 2.54,
+          v = +$(d[5]).value;
+        if (!g || !(a > 0) || !(w > 0) || !(h > 0)) return null;
+        var b = 10 * w + 6.25 * h - 5 * a + (g == "m" ? 5 : -161);
+        return {
+          g: g,
+          prot: Math.round(w * [0.83, 1, 1.2][v]),
+          kcal: Math.round(b * [1.2, 1.55, 1.725][v]),
+        };
+      }
+      function mkpf(px, id, a, w) {
+        var d = pids(px);
+        $(id).innerHTML =
+          '<div class="grid"><div><label data-i="g"></label><select id="' +
+          d[0] +
+          '"><option value="" data-i="gs"></option><option value="m" data-i="male"></option><option value="f" data-i="female"></option></select></div><div><label data-i="age"></label><input id="' +
+          d[1] +
+          '" type="number" min="1" max="100" value="' +
+          a +
+          '"></div><div><label data-i="w"></label><input id="' +
+          d[2] +
+          '" type="number" min="10" max="250" value="' +
+          w +
+          '"></div><div><label data-i="h"></label><div class="hh"><select id="' +
+          d[3] +
+          '"></select><select id="' +
+          d[4] +
+          '"></select></div></div><div><label data-i="act"></label><select id="' +
+          d[5] +
+          '"><option value="0" data-i="a1"></option><option value="1" data-i="a2"></option><option value="2" data-i="a3"></option></select></div></div>';
+      }
+      var MY = [],
+        BS = 0,
+        BG = 100,
+        LASTS = null,
+        MT = ["breakfast", "lunch", "snack", "dinner"],
+        MK = ["bf", "ln", "sn", "dn"],
+        MW = { breakfast: 0.25, lunch: 0.35, snack: 0.1, dinner: 0.3 };
+      function bar(lb, v, goal, u) {
+        var w = el("div", "", "pb");
+        w.append(
+          el("div", lb + ": " + Math.round(v) + " / " + goal + " " + u, "warn"),
+        );
+        var r = el("div", "", "trk"),
+          f = el("div", "", "fil");
+        f.style.width = "0%";
+        var wd = Math.min(100, goal > 0 ? (v / goal) * 100 : 0) + "%";
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            f.style.width = wd;
+          });
+        });
+        r.append(f);
+        w.append(r);
+        return w;
+      }
+      function upPv(f) {
+        var o = $("pv");
+        if (!o) return;
+        var x = IT[BS],
+          m = BG > 0 ? BG : 0,
+          P = (m * x.pr) / 100,
+          K = (m * x.kc) / 100;
+        o.textContent = "";
+        var im = document.createElement("img");
+        im.className = "pvi";
+        im.src = PIC[x.i] || "";
+        im.alt = "";
+        var b = el("div", "", "pvb"),
+          big = el("div", "", "pvbig"),
+          pp = el("span", "", "pvp"),
+          pk = el("span", "", "pvk"),
+          tr = el("div", "", "trk"),
+          fl = el("div", "", "fil"),
+          w = Math.min(100, (x.pr / 30) * 100) + "%";
+        big.append(pp, el("small", " g " + t("prt")), pk, el("small", " kcal"));
+        tr.append(fl);
+        b.append(
+          el("div", nm(x), "pvn"),
+          el(
+            "div",
+            t("per100") +
+              ": " +
+              x.pr +
+              " g " +
+              t("prt") +
+              " · " +
+              x.kc +
+              " kcal",
+            "pvc",
+          ),
+          big,
+          el(
+            "div",
+            m +
+              " g" +
+              (x.c == "e"
+                ? " (≈" + Math.round(m / 50) + " " + t("eggs") + ")"
+                : ""),
+            "pvg",
+          ),
+          tr,
+          el("div", t("dens"), "warn"),
+        );
+        o.append(im, b);
+        if (f) {
+          pp.textContent = P.toFixed(1) + " ";
+          pk.textContent = Math.round(K) + " ";
+          fl.style.width = w;
+        } else {
+          fl.style.width = "0%";
+          count(pp, P, "", 1);
+          count(pk, K, "", 0);
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              fl.style.width = w;
+            });
+          });
+        }
+      }
+      function prot() {
+        var o = $("pout");
+        o.textContent = "";
+        var p = prof("p"),
+          tg = el("div", "", "tcard");
+        if (!p) tg.append(el("p", t("fill"), "warn"));
+        else {
+          tg.append(
+            el("div", t("tgt"), "lbl"),
+            el("div", p.prot + " g " + t("day"), "num"),
+            el("div", t("cal") + ": ~" + p.kcal + " kcal " + t("day"), "sub"),
+          );
+          if (p.g == "f") tg.append(el("p", t("fem"), "warn"));
+        }
+        o.append(tg, el("h3", t("myd")));
+        var b = el("div", "", "bld"),
+          s = el("select"),
+          g = el("input"),
+          ab = el("button", t("addf"), "sm"),
+          pv = el("div", "", "pv");
+        pv.id = "pv";
+        IT.forEach(function (x) {
+          if (pr(x) > 0) {
+            var op = el("option", nm(x));
+            op.value = x.i;
+            s.append(op);
+          }
+        });
+        s.value = BS;
+        if (s.value != String(BS)) BS = +s.value;
+        var sl = el("input");
+        sl.type = "range";
+        sl.min = 10;
+        sl.max = 600;
+        sl.step = 10;
+        sl.className = "rng";
+        sl.value = Math.min(600, Math.max(10, BG));
+        s.onchange = function () {
+          BS = +s.value;
+          upPv();
+        };
+        g.type = "number";
+        g.min = 1;
+        g.value = BG;
+        g.oninput = function () {
+          BG = +g.value;
+          sl.value = Math.min(600, Math.max(10, BG));
+          upPv(true);
+        };
+        sl.oninput = function () {
+          BG = +sl.value;
+          g.value = BG;
+          upPv(true);
+        };
+        ab.onclick = function () {
+          if (BG > 0) {
+            MY.push({ id: BS, g: BG });
+            prot();
+          }
+        };
+        b.append(s, g, ab);
+        o.append(b, sl, pv);
+        upPv();
+        var tp = 0,
+          tk = 0;
+        if (!MY.length) {
+          var em = el("div", "", "empty");
+          em.innerHTML =
+            '<svg viewBox="0 0 64 64" width="76" height="76"><circle cx="38" cy="36" r="20" fill="#fff" stroke="#e3d9c4" stroke-width="3"/><circle cx="38" cy="36" r="13" fill="#f6ecd2"/><path d="M8 12v14c0 3 2 5 4 5s4-2 4-5V12M12 12v40" stroke="#9aa0a6" stroke-width="3" fill="none" stroke-linecap="round"/></svg>';
+          em.append(el("div", t("emp"), "em1"), el("div", t("emp2"), "warn"));
+          o.append(em);
+        } else {
+          var sc = el("div", "", "scroll"),
+            T = el("table"),
+            h = el("tr");
+          ["item", "gm", "prt", "cal", ""].forEach(function (k) {
+            h.append(el("th", k ? t(k) : ""));
+          });
+          T.append(h);
+          MY.forEach(function (m, i) {
+            var x = IT[m.id],
+              P = (m.g * x.pr) / 100,
+              K = (m.g * x.kc) / 100;
+            tp += P;
+            tk += K;
+            var r = el("tr"),
+              n = el("td"),
+              d = el("td"),
+              rb = el("button", "×", "rm");
+            rb.onclick = function () {
+              MY.splice(i, 1);
+              prot();
+            };
+            d.append(rb);
+            n.append(dot(x), nm(x));
+            r.append(
+              n,
+              el("td", m.g + " g"),
+              el("td", P.toFixed(1) + " g"),
+              el("td", Math.round(K) + " kcal"),
+              d,
+            );
+            T.append(r);
+          });
+          var f = el("tr");
+          f.append(
+            el("th", t("tot2")),
+            el("th", ""),
+            el("th", tp.toFixed(1) + " g"),
+            el("th", Math.round(tk) + " kcal"),
+            el("th", ""),
+          );
+          T.append(f);
+          sc.append(T);
+          o.append(sc);
+        }
+        if (p && MY.length) {
+          o.append(
+            bar(t("prt"), tp, p.prot, "g"),
+            bar(t("cal"), tk, p.kcal, "kcal"),
+          );
+          var lf = p.prot - tp;
+          o.append(
+            el(
+              "p",
+              lf > 0
+                ? t("left") + ": " + Math.ceil(lf) + " g " + t("prt")
+                : t("done"),
+              lf > 0 ? "bad" : "ok",
+            ),
+          );
+        }
+        if (p) {
+          o.append(el("h3", t("need")));
+          var nl = IT.filter(function (x) {
+              return pr(x) > 0 && x.pr >= 10;
+            })
+              .map(function (x) {
+                var gr = p.prot / (x.pr / 100);
+                return { x: x, gr: gr, c: (gr / x.g) * pr(x) };
+              })
+              .sort(function (a, b) {
+                return a.c - b.c;
+              })
+              .slice(0, 7),
+            u2 = el("ul");
+          nl.forEach(function (r) {
+            u2.append(
+              el(
+                "li",
+                nm(r.x) +
+                  ": ~" +
+                  Math.round(r.gr) +
+                  " g" +
+                  (r.x.c == "e"
+                    ? " (≈" + Math.round(r.gr / 50) + " " + t("eggs") + ")"
+                    : "") +
+                  " · ~" +
+                  Math.round(r.c) +
+                  " ৳",
+              ),
+            );
+          });
+          o.append(u2);
+        }
+        var bg = el("div", "", "bgrid");
+        [
+          ["b1", "zap", "#f59f00"],
+          ["b2", "shield", "#1c7ed6"],
+          ["b3", "clock", "#d6336c"],
+          ["b4", "trend", "#2f9e44"],
+        ].forEach(function (q, i) {
+          var c = el("div", "", "bc"),
+            ci = el("div", "", "bci");
+          c.style.setProperty("--bc", q[2]);
+          c.style.animationDelay = i * 100 + "ms";
+          ci.innerHTML = sv(IC[q[1]], 20);
+          c.append(ci, el("span", t(q[0])));
+          bg.append(c);
+        });
+        o.append(el("h3", t("ben")), bg, el("p", t("pn"), "warn"));
+      }
+      var CG = {
+        g: ["#f5a623", "#e8590c"],
+        l: ["#c2742a", "#8a2f0f"],
+        v: ["#43b05c", "#1b7a3a"],
+        m: ["#ec6a82", "#b3203a"],
+        f: ["#2fa6d9", "#1565c0"],
+        e: ["#f6b400", "#d9480f"],
+        d: ["#7fb2f0", "#3b6fd1"],
+        o: ["#8a8f98", "#4b5058"],
+      };
+      function fc() {
+        var b = $("fcs");
+        b.textContent = "";
+        var a = IT.filter(function (x) {
+            return pr(x) > 0 && x.pr >= 10;
+          })
+            .map(function (x) {
+              return { x: x, v: Math.round((x.g * x.pr) / pr(x)) };
+            })
+            .sort(function (a, b) {
+              return b.v - a.v;
+            })
+            .slice(0, 8),
+          mx = a.length ? a[0].v : 1;
+        a.forEach(function (r, n) {
+          var x = r.x,
+            g = CG[x.c],
+            c = el("div", "", "fc"),
+            i = el("div", "", "fi"),
+            f = el("div", "", "ff"),
+            k = el("div", "", "fb"),
+            wm = el("div", "", "wm"),
+            bz = el("div", "", "bz"),
+            mt = el("div", "", "mtr"),
+            mf = el("div", "", "mf");
+          c.style.animationDelay = n * 90 + "ms";
+          f.style.background =
+            "linear-gradient(145deg," + g[0] + "," + g[1] + ")";
+          k.style.borderTop = "5px solid " + g[0];
+          wm.innerHTML = sv(GL[x.c], 96);
+          bz.innerHTML = sv(IC.zap, 16);
+          mf.style.width = "0%";
+          mt.append(mf);
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              mf.style.width = (r.v / mx) * 100 + "%";
+            });
+          });
+          f.append(wm, el("div", "#" + (n + 1), "rk"), bz);
+          if (PIC[x.i]) f.append(dot(x, "big"));
+          f.append(
+            el("div", nm(x), "fn"),
+            el("div", r.v + " g", "fv"),
+            el("div", t("v100"), "fs"),
+            mt,
+          );
+          k.append(
+            el("b", nm(x)),
+            el("div", x.pr + " g", "fv2"),
+            el("div", t("prt") + " / 100 g", "fs2"),
+            el("div", x.kc + " kcal / 100 g"),
+            el("div", t("c" + x.c), "warn"),
+          );
+          i.append(f, k);
+          c.append(i);
+          c.onclick = function () {
+            c.classList.toggle("on");
+          };
+          b.append(c);
+        });
+      }
+      var MI = ["sunrise", "sun", "food", "moon"];
+      function count(n, v, u, dec) {
+        var t0 = null;
+        function f(ts) {
+          if (t0 === null) t0 = ts;
+          var k = Math.min(1, (ts - t0) / 1000);
+          n.textContent =
+            (v * (1 - Math.pow(1 - k, 3))).toFixed(dec || 0) + " " + u;
+          if (k < 1) requestAnimationFrame(f);
+        }
+        requestAnimationFrame(f);
+      }
+      function ring(ik, lb, v, goal, u, okc, gt, i) {
+        var C = 213.6,
+          pc = goal > 0 ? Math.min(1, v / goal) : 0,
+          w = el("div", "", "rgc"),
+          rw = el("div", "", "rw"),
+          tt = el("div", "", "rt"),
+          ii = el("i", "", "ic");
+        w.style.animationDelay = i * 120 + "ms";
+        rw.innerHTML =
+          '<svg viewBox="0 0 80 80" width="96" height="96"><circle cx="40" cy="40" r="34" fill="none" stroke="var(--bd)" stroke-width="7"/><circle class="rp" cx="40" cy="40" r="34" fill="none" stroke="' +
+          (okc ? "var(--ac)" : "var(--bad)") +
+          '" stroke-width="7" stroke-linecap="round" stroke-dasharray="' +
+          C +
+          '" stroke-dashoffset="' +
+          C +
+          '" transform="rotate(-90 40 40)"/></svg>';
+        var n = el("div", "0", "rn");
+        rw.append(n);
+        ii.innerHTML = sv(IC[ik], 18);
+        tt.append(ii, lb);
+        w.append(rw, tt, el("div", gt, "warn"));
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            rw.querySelector(".rp").style.strokeDashoffset = C * (1 - pc);
+          });
+        });
+        count(n, v, u);
+        return w;
+      }
+      var MC = {
+          breakfast: "#f59f00",
+          lunch: "#2f9e44",
+          snack: "#d6336c",
+          dinner: "#5f3dc4",
+        },
+        DS = [
+          ["শনি", "Sat"],
+          ["রবি", "Sun"],
+          ["সোম", "Mon"],
+          ["মঙ্গল", "Tue"],
+          ["বুধ", "Wed"],
+          ["বৃহঃ", "Thu"],
+          ["শুক্র", "Fri"],
+        ];
+      var XRAW = `S:চিপস/Potato chips;কুরকুরে/Kurkure;চানাচুর/Chanachur;ঝালমুড়ি/Jhalmuri;মুড়ি/Puffed rice;চিড়া/Flattened rice;পপকর্ন/Popcorn;চিনাবাদাম ভাজা/Roasted peanuts;কাজুবাদাম/Cashew nuts;কাঠবাদাম/Almonds;কিশমিশ/Raisins;খেজুর/Dates;পেস্তা বাদাম/Pistachios;আখরোট/Walnuts;ফুচকা/Fuchka;চটপটি/Chotpoti;সমুচা/Samosa;পেঁয়াজু/Piyaju;বেগুনি/Beguni;আলুর চপ/Potato chop;ডিমের চপ/Egg chop;নিমকি/Nimki;ঝুরি ভাজা/Jhuri bhaja;পাপড়/Papad;ফ্রেঞ্চ ফ্রাই/French fries;সিদ্ধ ভুট্টা/Boiled corn;ভাজা ছোলা/Roasted chickpeas;ভেলপুরি/Bhelpuri
+N:ইনস্ট্যান্ট নুডলস/Instant noodles;স্পাগেটি/Spaghetti;ম্যাকারনি/Macaroni;পাস্তা/Pasta;সেমাই/Vermicelli;লাচ্ছা সেমাই/Lachcha semai;চাউমিন/Chowmein;কর্নফ্লেক্স/Cornflakes;ওটস/Oats;মুসেলি/Muesli;সুজি/Semolina;ময়দা/Refined flour;সাগু/Sago;কাস্টার্ড পাউডার/Custard powder;রেডি স্যুপ/Instant soup;ফ্রোজেন পরোটা/Frozen paratha;ইনস্ট্যান্ট খিচুড়ি/Instant khichuri;কাপ নুডলস/Cup noodles
+B:পাউরুটি/Bread;বান রুটি/Bun;কেক/Cake;রাস্ক/Rusk;টোস্ট বিস্কুট/Toast biscuit;লবণ বিস্কুট/Salted biscuit;ক্রিম বিস্কুট/Cream biscuit;চকলেট বিস্কুট/Chocolate biscuit;ডাইজেস্টিভ বিস্কুট/Digestive biscuit;নান রুটি/Naan;পরোটা/Paratha;রুটি/Roti;লুচি/Luchi;ক্রয়সঁ/Croissant;মাফিন/Muffin;পিৎজা/Pizza;বার্গার/Burger;স্যান্ডউইচ/Sandwich;কুকিজ/Cookies;ওয়েফার/Wafer;পেস্ট্রি/Pastry;ডোনাট/Donut;ভাপা পিঠা/Bhapa pitha;চিতই পিঠা/Chitoi pitha
+D:পানির বোতল/Water bottle;চা পাতা/Tea leaves;কফি/Coffee;গ্রিন টি/Green tea;ফলের জুস/Fruit juice;আমের জুস/Mango juice;কোমল পানীয়/Soft drink;কোলা/Cola;লেবুর শরবত/Lemon drink;রুহ আফজা/Rooh Afza;হরলিক্স/Horlicks;বোর্নভিটা/Bournvita;মিল্কশেক/Milkshake;ডাবের পানি/Coconut water;আখের রস/Sugarcane juice;লাচ্ছি/Lassi;ঘোল/Buttermilk;এনার্জি ড্রিংক/Energy drink;ওরস্যালাইন/Oral saline;গুঁড়া দুধ/Powdered milk;কনডেন্সড মিল্ক/Condensed milk;ক্রিমার/Coffee creamer;চকলেট ড্রিংক/Chocolate drink;স্বাদযুক্ত দুধ/Flavoured milk
+F:আপেল/Apple;কমলা/Orange;মাল্টা/Malta;আঙুর/Grapes;পেয়ারা/Guava;পেঁপে/Papaya;আম/Mango;লিচু/Lychee;কাঁঠাল/Jackfruit;আনারস/Pineapple;তরমুজ/Watermelon;বাঙ্গি/Muskmelon;ডালিম/Pomegranate;নাশপাতি/Pear;জাম/Black plum;কামরাঙা/Starfruit;আমলকী/Amla;বরই/Jujube;নারকেল/Coconut;ডাব/Green coconut;স্ট্রবেরি/Strawberry;কিউই/Kiwi;তেঁতুল/Tamarind;জামরুল/Rose apple;সফেদা/Sapodilla;আতা/Custard apple;লেবু/Lemon;আমড়া/Hog plum;ড্রাগন ফল/Dragon fruit;অ্যাভোকাডো/Avocado;কমলালেবু/Tangerine;পাকা কলা/Ripe banana;ফুটি/Honeydew;তাজা খেজুর/Fresh dates
+W:রসগোল্লা/Rasgulla;মিষ্টি দই/Sweet yogurt;দই/Yogurt;সন্দেশ/Sandesh;চমচম/Chomchom;কালো জাম মিষ্টি/Kalojam;জিলাপি/Jilapi;বরফি/Barfi;পায়েস/Payesh;ফিরনি/Firni;হালুয়া/Halua;নারকেল নাড়ু/Coconut naru;চকলেট/Chocolate;ক্যান্ডি/Candy;আইসক্রিম/Ice cream;জেলি/Jelly;মধু/Honey;গুড়/Jaggery;খেজুর গুড়/Date jaggery;মিছরি/Rock sugar;কেকের মিক্স/Cake mix;জ্যাম/Jam
+P:হলুদ গুঁড়া/Turmeric powder;মরিচ গুঁড়া/Chili powder;ধনিয়া গুঁড়া/Coriander powder;জিরা গুঁড়া/Cumin powder;গরম মসলা/Garam masala;এলাচ/Cardamom;দারুচিনি/Cinnamon;লবঙ্গ/Cloves;তেজপাতা/Bay leaf;জিরা/Cumin seeds;কালোজিরা/Black cumin;মেথি/Fenugreek;পাঁচফোড়ন/Panch phoron;শুকনা মরিচ/Dried chili;গোলমরিচ/Black pepper;জয়ত্রী/Mace;জায়ফল/Nutmeg;ধনে পাতা/Coriander leaves;পুদিনা পাতা/Mint leaves;কারি পাতা/Curry leaves;টমেটো সস/Tomato sauce;চিলি সস/Chili sauce;সয়া সস/Soy sauce;ভিনেগার/Vinegar;মেয়োনিজ/Mayonnaise;আচার/Pickle;ঘি/Ghee;মাখন/Butter;সরিষার তেল/Mustard oil;পাম তেল/Palm oil;নারকেল তেল/Coconut oil;অলিভ তেল/Olive oil;বেকিং পাউডার/Baking powder;বেকিং সোডা/Baking soda;ইস্ট/Yeast;ভ্যানিলা/Vanilla;কোকো পাউডার/Cocoa powder;কর্নফ্লাওয়ার/Cornflour
+V:ফুলকপি/Cauliflower;বাঁধাকপি/Cabbage;গাজর/Carrot;মুলা/Radish;লাউ/Bottle gourd;চালকুমড়া/Ash gourd;কাঁচকলা/Green banana;কচু/Taro;কচুর লতি/Taro stem;ডাঁটা/Amaranth stem;পালং শাক/Spinach;লাউ শাক/Gourd leaves;মুলা শাক/Radish leaves;সরিষা শাক/Mustard greens;ব্রকলি/Broccoli;ক্যাপসিকাম/Capsicum;মটরশুঁটি/Green peas;বরবটি/Yardlong bean;শিম/Hyacinth bean;ঝিঙা/Ridge gourd;চিচিঙ্গা/Snake gourd;কাঁকরোল/Spiny gourd;কাঁচা পেঁপে/Green papaya;মিষ্টি আলু/Sweet potato;বিট/Beetroot;শালগম/Turnip;ওলকপি/Kohlrabi;লেটুস/Lettuce;মাশরুম/Mushroom;সজনে ডাঁটা/Drumstick;কলার মোচা/Banana flower;পেঁয়াজকলি/Spring onion;কাঁচা আম/Green mango
+M:খাসির মাংস/Goat meat;দেশি মুরগি/Desi chicken;হাঁসের মাংস/Duck meat;কবুতর/Pigeon;হাঁসের ডিম/Duck egg;কোয়েল ডিম/Quail egg;কাতলা মাছ/Catla fish;ইলিশ মাছ/Hilsa;চিংড়ি মাছ/Prawn;শুঁটকি মাছ/Dried fish;সার্ডিন/Sardine;টুনা/Tuna;কই মাছ/Koi fish;শিং মাছ/Shing fish;মাগুর মাছ/Magur fish;পাবদা মাছ/Pabda fish;বোয়াল মাছ/Boal fish;সিলভার কার্প/Silver carp;কাঁকড়া/Crab;স্কুইড/Squid;চিতল মাছ/Chital fish;ট্যাংরা মাছ/Tengra fish;রূপচাঁদা/Pomfret;সসেজ/Sausage;চিকেন নাগেট/Chicken nugget;মাংসের কিমা/Minced meat;কাবাব/Kebab;ফ্রোজেন চিকেন/Frozen chicken;মলা মাছ/Mola fish;পুঁটি মাছ/Puti fish
+L:পনির/Paneer;চিজ/Cheese;ক্রিম/Cream;ছানা/Chhana;টক দই/Sour yogurt;ইউএইচটি দুধ/UHT milk;সয়া দুধ/Soy milk;মালাই/Malai;ক্ষীর/Kheer
+G:চিনিগুঁড়া চাল/Chinigura rice;পোলাও চাল/Polao rice;বাসমতি চাল/Basmati rice;মিনিকেট চাল/Miniket rice;নাজিরশাইল চাল/Nazirshail rice;লাল চাল/Red rice;চালের গুঁড়া/Rice flour;বেসন/Gram flour;ছাতু/Sattu;মটর ডাল/Split pea;অড়হর ডাল/Pigeon pea;মাষকলাই ডাল/Black gram;রাজমা/Kidney beans;সয়াবিন দানা/Soybean;সরিষা/Mustard seeds;তিল/Sesame;তিসি/Flaxseed;চিয়া সিড/Chia seeds;কুমড়া বীজ/Pumpkin seeds;সূর্যমুখী বীজ/Sunflower seeds;ভুট্টা/Corn;যব/Barley;বার্লি/Barley powder;কাউন/Foxtail millet;পোস্ত দানা/Poppy seeds;কুড়ানো নারকেল/Grated coconut;শুকনা ছোলা/Dried chickpea;কালো ছোলা/Black chickpea;ভাজা মুগ ডাল/Roasted mung dal`;
+      var XC = [];
+      XRAW.split("\n").forEach(function (l) {
+        l.slice(2)
+          .split(";")
+          .forEach(function (p) {
+            var a = p.split("/");
+            if (a[0]) XC.push({ c: l[0], bn: a[0], en: a[1] || a[0] });
+          });
+      });
+      var CATN = {
+        S: ["স্ন্যাকস", "Snacks"],
+        N: ["নুডলস ও রেডি", "Noodles & ready"],
+        B: ["বেকারি", "Bakery"],
+        D: ["পানীয়", "Drinks"],
+        F: ["ফল", "Fruit"],
+        W: ["মিষ্টি", "Sweets"],
+        P: ["মসলা, তেল, সস", "Spices, oils, sauces"],
+        V: ["সবজি", "Vegetables"],
+        M: ["মাংস, মাছ, ডিম", "Meat, fish, eggs"],
+        L: ["দুগ্ধজাত", "Dairy"],
+        G: ["চাল, ডাল, বীজ", "Grains, pulses, seeds"],
+        o: ["অন্যান্য", "Other"],
+      };
+      var XPIC = {};
+      (function () {
+        var X = {
+          S: [
+            "#fff0d9",
+            '<path d="M16 12h32l-2 40H18z" fill="#e03131"/><path d="M16 12l4 4 4-4 4 4 4-4 4 4 4-4 4 4" stroke="#fff" fill="none" stroke-width="2"/><circle cx="32" cy="32" r="8" fill="#fcc419"/>',
+          ],
+          N: [
+            "#fff4d6",
+            '<path d="M10 36h44a22 22 0 0 1-44 0z" fill="#e8590c"/><path d="M14 36c0-8 6-10 10-6s8 4 12 0 10-2 14 6z" fill="#ffd43b"/><path d="M20 28c4-4 8 4 12 0s8 4 12 0" stroke="#f08c00" fill="none" stroke-width="3"/><path d="M40 10l-6 20M46 12l-6 18" stroke="#8a5a2b" stroke-width="3"/>',
+          ],
+          B: [
+            "#fdf0dc",
+            '<path d="M12 32c0-10 8-16 20-16s20 6 20 16v18H12z" fill="#e0a458"/><path d="M12 32c0-10 8-16 20-16s20 6 20 16z" fill="#f2c27d"/><path d="M24 26v6M32 24v8M40 26v6" stroke="#b97a2e" stroke-width="2.5" stroke-linecap="round"/>',
+          ],
+          D: [
+            "#e7f5ff",
+            '<path d="M18 22h28l-4 32H22z" fill="#4dabf7"/><path d="M18 22h28" stroke="#1c7ed6" stroke-width="3"/><path d="M36 22l4-12h6" stroke="#e03131" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="30" cy="38" r="4" fill="#fff" opacity=".6"/>',
+          ],
+          F: [
+            "#ffe8e8",
+            '<path d="M32 22c-8-6-20-2-18 12 2 14 12 22 18 18 6 4 16-4 18-18 2-14-10-18-18-12z" fill="#e03131"/><path d="M32 22c0-6 2-10 6-12" stroke="#5c3d1e" stroke-width="3" fill="none"/><path d="M34 14c6-4 12 0 12 0-4 6-10 4-12 0z" fill="#40c057"/>',
+          ],
+          W: [
+            "#ffe3ee",
+            '<circle cx="32" cy="32" r="12" fill="#f06595"/><path d="M20 32l-10-8v16zM44 32l10-8v16z" fill="#fcc2d7"/><path d="M26 28c4 2 8 6 12 8" stroke="#fff" stroke-width="2.5" fill="none"/>',
+          ],
+          P: [
+            "#fff1e0",
+            '<rect x="20" y="22" width="24" height="30" rx="4" fill="#fff" stroke="#adb5bd" stroke-width="2"/><rect x="18" y="14" width="28" height="9" rx="3" fill="#e8590c"/><rect x="24" y="30" width="16" height="12" rx="2" fill="#fab005"/>',
+          ],
+          V: [
+            "#e6f6e3",
+            '<path d="M32 56C18 46 14 30 22 22c8-6 20 2 18 14-2 8-4 14-8 20z" fill="#f76707"/><path d="M26 16l-4-8M32 14V4M38 16l4-8" stroke="#40c057" stroke-width="3" stroke-linecap="round"/><path d="M24 32h6M28 42h6" stroke="#d9480f" stroke-width="2"/>',
+          ],
+          M: [
+            "#fde4e4",
+            '<ellipse cx="28" cy="34" rx="18" ry="14" fill="#e8590c"/><path d="M42 30l10-6 2 6-8 8z" fill="#f1f3f5"/><ellipse cx="24" cy="32" rx="8" ry="6" fill="#ffa94d"/>',
+          ],
+          L: [
+            "#eef4fb",
+            '<path d="M20 12h24l-3 42H23z" fill="#fff" stroke="#adb5bd" stroke-width="2"/><path d="M21 28h22l-1.5 26h-19z" fill="#d0ebff"/>',
+          ],
+          G: [
+            "#f5ead2",
+            '<path d="M18 22l6-8h16l6 8v30H18z" fill="#d8b573"/><path d="M24 14l4 6h8l4-6z" fill="#c49a52"/><circle cx="32" cy="38" r="6" fill="#f5ead2"/>',
+          ],
+          o: [
+            "#eef0f3",
+            '<circle cx="32" cy="34" r="20" fill="#fff" stroke="#ced4da" stroke-width="3"/><circle cx="32" cy="34" r="12" fill="#f1f3f5"/><circle cx="32" cy="34" r="4" fill="#adb5bd"/>',
+          ],
+        };
+        Object.keys(X).forEach(function (k) {
+          XPIC[k] =
+            "data:image/svg+xml;utf8," +
+            encodeURIComponent(
+              '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="' +
+                X[k][0] +
+                '"/>' +
+                X[k][1] +
+                "</svg>",
+            );
+        });
+      })();
+      function xdot(c) {
+        var i = document.createElement("img");
+        i.className = "th";
+        i.src = XPIC[c] || XPIC.o;
+        i.alt = "";
+        return i;
+      }
+      function nmx(x) {
+        return L == "bn" ? x.bn : x.en;
+      }
+      var QO = [
+          ["১টি", "1 pc"],
+          ["২টি", "2 pcs"],
+          ["৩টি", "3 pcs"],
+          ["৫টি", "5 pcs"],
+          ["১ হালি", "4 pcs"],
+          ["১ ডজন", "1 dozen"],
+          ["১ প্যাকেট", "1 packet"],
+          ["২ প্যাকেট", "2 packets"],
+          ["১০০ গ্রাম", "100 g"],
+          ["২৫০ গ্রাম", "250 g"],
+          ["৫০০ গ্রাম", "500 g"],
+          ["১ কেজি", "1 kg"],
+          ["২ কেজি", "2 kg"],
+          ["৫ কেজি", "5 kg"],
+          ["১ লিটার", "1 L"],
+          ["২ লিটার", "2 L"],
+        ],
+        PO = [
+          10, 20, 30, 40, 50, 60, 80, 100, 120, 150, 200, 250, 300, 400, 500,
+          600, 800, 1000, 1500, 2000,
+        ];
+      function extraForm(d, id) {
+        var w = el("div", "", "xfm"),
+          cb = el("div", "", "cbx"),
+          pic = el("span", "", "cbp"),
+          inp = el("input"),
+          lst = el("div", "", "cbl"),
+          qs = el("select"),
+          ps = el("select"),
+          oth = el("input"),
+          ab = el("button", t("addf"), "sm"),
+          sel = null;
+        inp.placeholder = t("xs").replace("{n}", XC.length);
+        inp.autocomplete = "off";
+        oth.type = "number";
+        oth.min = 0;
+        oth.placeholder = t("xp");
+        oth.style.display = "none";
+        var q0 = el("option", t("qs0"));
+        q0.value = "";
+        qs.append(q0);
+        QO.forEach(function (o, i) {
+          var e = el("option", o[L == "bn" ? 0 : 1]);
+          e.value = i;
+          qs.append(e);
+        });
+        var p0 = el("option", t("ps0"));
+        p0.value = "";
+        ps.append(p0);
+        PO.forEach(function (v) {
+          var e = el("option", "৳ " + v);
+          e.value = v;
+          ps.append(e);
+        });
+        var po = el("option", t("po"));
+        po.value = "x";
+        ps.append(po);
+        ps.onchange = function () {
+          oth.style.display = ps.value == "x" ? "block" : "none";
+        };
+        function fill() {
+          var q = inp.value.trim().toLowerCase(),
+            n = 0;
+          lst.textContent = "";
+          XC.forEach(function (x) {
+            if (n >= 40) return;
+            if (q && (x.bn + " " + x.en).toLowerCase().indexOf(q) < 0) return;
+            n++;
+            var r = el("div", "", "cbi");
+            r.append(
+              xdot(x.c),
+              el("span", nmx(x)),
+              el("small", CATN[x.c][L == "bn" ? 0 : 1]),
+            );
+            r.onmousedown = function (e) {
+              e.preventDefault();
+              pick(x);
+            };
+            lst.append(r);
+          });
+          var rc = cb.getBoundingClientRect(),
+            up = window.innerHeight - rc.bottom < 280 && rc.top > 280;
+          lst.style.top = up ? "auto" : "calc(100% + 4px)";
+          lst.style.bottom = up ? "calc(100% + 4px)" : "auto";
+          lst.style.display = n ? "block" : "none";
+        }
+        function pick(x) {
+          sel = x;
+          inp.value = nmx(x);
+          pic.textContent = "";
+          pic.append(xdot(x.c));
+          lst.style.display = "none";
+        }
+        inp.oninput = function () {
+          sel = null;
+          pic.textContent = "";
+          fill();
+        };
+        inp.onfocus = fill;
+        inp.onblur = function () {
+          setTimeout(function () {
+            lst.style.display = "none";
+          }, 150);
+        };
+        ab.onclick = function () {
+          var nme = inp.value.trim();
+          if (!nme) return;
+          if (!sel) {
+            var lc = nme.toLowerCase();
+            sel =
+              XC.filter(function (x) {
+                return x.bn.toLowerCase() == lc || x.en.toLowerCase() == lc;
+              })[0] || null;
+          }
+          var p = ps.value == "x" ? +oth.value || 0 : +ps.value || 0;
+          (d.extra = d.extra || []).push({
+            n: sel ? nmx(sel) : nme,
+            q: qs.value !== "" ? QO[+qs.value][L == "bn" ? 0 : 1] : "",
+            p: Math.max(0, p),
+            c: sel ? sel.c : "o",
+          });
+          render(d, id);
+        };
+        cb.append(pic, inp, lst);
+        w.append(cb, qs, ps, oth, ab);
+        return w;
+      }
+      var VA = 21,
+        VB = 3,
+        VG = "all",
+        VGL = [
+          ["all", "vg1"],
+          ["prot", "vg2"],
+          ["eng", "vg3"],
+          ["lite", "vg4"],
+        ];
+      function met(x) {
+        var p = pr(x);
+        return {
+          pp: (p / x.g) * 100,
+          kc: x.kc,
+          kv: (x.g * x.kc) / p,
+          pt: x.pr,
+          pv: (x.g * x.pr) / p,
+        };
+      }
+      function vsel() {
+        ["vsa", "vsb"].forEach(function (id, k) {
+          var sl = $(id),
+            cur = k ? VB : VA,
+            first = null;
+          sl.textContent = "";
+          IT.forEach(function (x) {
+            if (pr(x) <= 0) return;
+            if (first === null) first = x.i;
+            var o = el("option", nm(x));
+            o.value = x.i;
+            sl.append(o);
+          });
+          sl.value = cur;
+          if (sl.value != String(cur)) {
+            sl.value = first;
+            if (k) VB = first;
+            else VA = first;
+          }
+        });
+        var g = $("vsg");
+        g.textContent = "";
+        VGL.forEach(function (q) {
+          var l = el("label", "", "chip" + (VG == q[0] ? " on" : "")),
+            c = document.createElement("input");
+          c.type = "checkbox";
+          c.checked = VG == q[0];
+          c.onchange = function () {
+            VG = q[0];
+            vsel();
+            runVs();
+          };
+          l.append(c, t(q[1]));
+          g.append(l);
+        });
+      }
+      function fmtv(k, v) {
+        return (
+          (k == "pp" || k == "pt" || k == "pv" ? v.toFixed(1) : Math.round(v)) +
+          (k == "pp" ? " ৳" : k == "pt" || k == "pv" ? " g" : " kcal")
+        );
+      }
+      function fcard(x, cls, win) {
+        var c = el("div", "", "fcrd " + cls + (win ? " fwin" : "")),
+          im = document.createElement("img");
+        im.className = "fimg";
+        im.src = PIC[x.i] || "";
+        im.alt = "";
+        if (win) {
+          var cr = el("div", "", "fcr");
+          cr.innerHTML = sv(IC.crown, 22);
+          c.append(cr);
+        }
+        c.append(
+          im,
+          el("div", nm(x), "fnm"),
+          el("div", "৳" + pr(x) + " / " + ul(x), "fpr"),
+          el(
+            "div",
+            CATN[
+              {
+                g: "G",
+                l: "G",
+                v: "V",
+                m: "M",
+                f: "M",
+                e: "M",
+                d: "L",
+                o: "P",
+              }[x.c]
+            ][L == "bn" ? 0 : 1],
+            "fct",
+          ),
+        );
+        return c;
+      }
+      function runVs() {
+        var o = $("vso");
+        o.textContent = "";
+        var A = IT[VA],
+          B = IT[VB];
+        if (!A || !B || pr(A) <= 0 || pr(B) <= 0) return;
+        var a = met(A),
+          b = met(B);
+        var W = {
+          all: { pp: 1, kc: 0, kv: 1, pt: 1, pv: 1 },
+          prot: { pp: 1, kc: 0, kv: 0, pt: 2, pv: 2 },
+          eng: { pp: 1, kc: 2, kv: 2, pt: 0, pv: 0 },
+          lite: { pp: 1, kc: 2, kv: 0, pt: 1, pv: 0 },
+        }[VG];
+        var rows = [
+            ["pp", "vm1", -1],
+            ["kc", "vm2", VG == "lite" ? -1 : 1],
+            ["kv", "vm3", 1],
+            ["pt", "vm4", 1],
+            ["pv", "vm5", 1],
+          ],
+          sa = 0,
+          sb = 0,
+          res = [];
+        rows.forEach(function (r) {
+          var k = r[0],
+            xa = a[k],
+            xb = b[k],
+            w = W[k],
+            dir = r[2],
+            win = 0;
+          if (w > 0 && Math.abs(xa - xb) > 0.03 * Math.max(xa, xb, 1e-9)) {
+            win = (xa > xb ? 1 : -1) * dir > 0 ? 1 : 2;
+          }
+          if (win == 1) sa += w;
+          if (win == 2) sb += w;
+          res.push({ k: k, l: r[1], va: xa, vb: xb, win: win, w: w, dir: dir });
+        });
+        var tie = sa == sb,
+          wr = sa > sb ? 1 : 2,
+          wn = sa > sb ? A : B,
+          ar = el("div", "", "arena");
+        ar.append(
+          fcard(A, "fa", !tie && wr == 1),
+          el("div", "VS", "vsbdg"),
+          fcard(B, "fb2", !tie && wr == 2),
+        );
+        o.append(ar);
+        var rb = el("div", "", "vrows");
+        res.forEach(function (r, i) {
+          var rw = el("div", "", "vr"),
+            bs = el("div", "", "vbars"),
+            l1 = el("div", "", "vbl"),
+            r1 = el("div", "", "vbr"),
+            mx = Math.max(r.va, r.vb, 1e-9);
+          function mk(v, c, win) {
+            var bx = el("div", fmtv(r.k, v), "vbar " + c + (win ? " vw" : "")),
+              w = Math.max(22, (v / mx) * 100) + "%";
+            bx.style.width = "0%";
+            if (win) {
+              var cr = el("i", "", "cr");
+              cr.innerHTML = sv(IC.crown, 15);
+              bx.prepend(cr);
+            }
+            requestAnimationFrame(function () {
+              requestAnimationFrame(function () {
+                bx.style.width = w;
+              });
+            });
+            return bx;
+          }
+          l1.append(mk(r.va, "ba", r.win == 1));
+          r1.append(mk(r.vb, "bb", r.win == 2));
+          bs.append(l1, r1);
+          rw.append(el("div", t(r.l) + (r.w > 1 ? " ★" : ""), "vl2"), bs);
+          rw.style.animationDelay = i * 90 + "ms";
+          rb.append(rw);
+        });
+        o.append(rb);
+        var ban = el("div", "", "vban" + (tie ? " vtie" : ""));
+        if (tie) {
+          ban.append(
+            el("div", t("vdraw"), "vwn"),
+            el("div", t("vdrawd"), "vsub"),
+          );
+        } else {
+          var cr2 = el("div", "", "vcrw");
+          cr2.innerHTML = sv(IC.crown, 38);
+          ban.append(
+            cr2,
+            el("div", nm(wn) + " " + t("vwin"), "vwn"),
+            el(
+              "div",
+              t("vgl") +
+                ": " +
+                t(
+                  VGL.filter(function (q) {
+                    return q[0] == VG;
+                  })[0][1],
+                ) +
+                " · " +
+                t("vsc") +
+                " " +
+                Math.max(sa, sb) +
+                " – " +
+                Math.min(sa, sb),
+              "vsub",
+            ),
+          );
+          var rs = el("div", "", "vpills");
+          res
+            .filter(function (r) {
+              return r.win == wr && r.w > 0;
+            })
+            .sort(function (x, y) {
+              return y.w - x.w;
+            })
+            .slice(0, 3)
+            .forEach(function (r, i) {
+              var hi = Math.max(r.va, r.vb),
+                lo = Math.min(r.va, r.vb),
+                p = el(
+                  "span",
+                  t(r.l) +
+                    ": " +
+                    (lo > 0 ? (hi / lo).toFixed(1) + "× " : "") +
+                    t(r.k == "pp" ? "vcheap" : r.dir < 0 ? "vless" : "vmore"),
+                  "vpill",
+                );
+              p.style.animationDelay = 600 + i * 180 + "ms";
+              rs.append(p);
+            });
+          ban.append(rs);
+        }
+        ban.style.position = "relative";
+        ban.style.overflow = "hidden";
+        o.append(ban, el("p", t("vnote"), "warn"));
+        if (!tie) confetti(ban);
+      }
+      var TPL = [
+        [
+          "b",
+          "রুটি ও আলু ভাজি",
+          "Roti with fried potato",
+          [
+            [2, 70],
+            [7, 80],
+            [28, 5],
+            [17, 15],
+          ],
+        ],
+        [
+          "b",
+          "রুটি ও ডিম ভাজি",
+          "Roti with fried egg",
+          [
+            [2, 70],
+            [21, 50],
+            [28, 6],
+            [17, 15],
+          ],
+        ],
+        [
+          "b",
+          "রুটি ও ডাল",
+          "Roti with dal",
+          [
+            [2, 70],
+            [3, 30],
+            [17, 10],
+            [28, 4],
+          ],
+        ],
+        [
+          "b",
+          "ভাত ও ডিম",
+          "Rice with egg",
+          [
+            [0, 80],
+            [21, 50],
+            [17, 10],
+            [28, 4],
+          ],
+        ],
+        [
+          "b",
+          "কলা ও দুধ",
+          "Banana and milk",
+          [
+            [31, 100],
+            [22, 150],
+          ],
+        ],
+        [
+          "b",
+          "সিদ্ধ ছোলা ও কলা",
+          "Boiled chickpeas and banana",
+          [
+            [5, 50],
+            [31, 100],
+            [17, 10],
+          ],
+        ],
+        [
+          "b",
+          "রুটি ও কুমড়া ভাজি",
+          "Roti with pumpkin",
+          [
+            [2, 70],
+            [10, 100],
+            [28, 5],
+          ],
+        ],
+        [
+          "b",
+          "সেদ্ধ ডিম ও কলা",
+          "Boiled eggs and banana",
+          [
+            [21, 100],
+            [31, 100],
+          ],
+        ],
+        [
+          "b",
+          "রুটি ও বেগুন ভাজি",
+          "Roti with fried eggplant",
+          [
+            [2, 70],
+            [8, 100],
+            [28, 8],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, ডাল ও আলু ভর্তা",
+          "Rice, dal and mashed potato",
+          [
+            [0, 120],
+            [3, 40],
+            [7, 80],
+            [28, 5],
+            [17, 15],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, ডাল ও লাল শাক",
+          "Rice, dal and red spinach",
+          [
+            [0, 120],
+            [3, 40],
+            [15, 100],
+            [28, 5],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, ডিম ও কুমড়া",
+          "Rice, egg and pumpkin",
+          [
+            [0, 120],
+            [21, 50],
+            [10, 100],
+            [28, 6],
+          ],
+        ],
+        [
+          "m",
+          "খিচুড়ি ও ডিম",
+          "Khichuri with egg",
+          [
+            [0, 80],
+            [4, 40],
+            [21, 50],
+            [7, 50],
+            [28, 6],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, ছোলা ও বেগুন",
+          "Rice, chickpeas and eggplant",
+          [
+            [0, 120],
+            [5, 40],
+            [8, 80],
+            [28, 5],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, খেসারি ডাল ও ঢেঁড়স",
+          "Rice, khesari dal and okra",
+          [
+            [0, 120],
+            [6, 40],
+            [11, 80],
+            [28, 5],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, পাঙ্গাস মাছ ও পুঁই শাক",
+          "Rice, pangas fish and Malabar spinach",
+          [
+            [0, 120],
+            [27, 80],
+            [16, 100],
+            [28, 6],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, মুরগি ও আলু",
+          "Rice, chicken and potato",
+          [
+            [0, 120],
+            [23, 100],
+            [7, 80],
+            [28, 8],
+            [17, 20],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, তেলাপিয়া মাছ ও টমেটো",
+          "Rice, tilapia and tomato",
+          [
+            [0, 120],
+            [26, 90],
+            [13, 80],
+            [28, 6],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, মুগ ডাল ও করলা",
+          "Rice, mung dal and bitter gourd",
+          [
+            [0, 120],
+            [4, 40],
+            [14, 80],
+            [28, 5],
+          ],
+        ],
+        [
+          "m",
+          "রুটি, ডাল ও কুমড়া",
+          "Roti, dal and pumpkin",
+          [
+            [2, 80],
+            [3, 40],
+            [10, 80],
+            [28, 5],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, ডিম ও লাল শাক",
+          "Rice, egg and red spinach",
+          [
+            [0, 120],
+            [21, 50],
+            [15, 100],
+            [28, 5],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, রুই মাছ ও পটল",
+          "Rice, rui fish and pointed gourd",
+          [
+            [0, 120],
+            [25, 80],
+            [9, 80],
+            [28, 6],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, গরুর মাংস ও আলু",
+          "Rice, beef and potato",
+          [
+            [0, 120],
+            [24, 70],
+            [7, 80],
+            [28, 8],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, ডাল ও ডিম",
+          "Rice, dal and egg",
+          [
+            [0, 120],
+            [3, 40],
+            [21, 50],
+            [28, 4],
+          ],
+        ],
+        [
+          "m",
+          "ভাত, ছোলা ও লাল শাক",
+          "Rice, chickpeas and red spinach",
+          [
+            [0, 120],
+            [5, 40],
+            [15, 100],
+            [28, 5],
+          ],
+        ],
+      ];
+      var LB = 100,
+        LG = "all",
+        LO = 0;
+      function tmet(tp) {
+        var c = 0,
+          k = 0,
+          p = 0;
+        tp[3].forEach(function (q) {
+          var x = IT[q[0]],
+            g = q[1];
+          c += (g / x.g) * pr(x);
+          k += (g * x.kc) / 100;
+          p += (g * x.pr) / 100;
+        });
+        return { c: c, k: k, p: p, tp: tp };
+      }
+      function lowPlans(B0, G0) {
+        var bud = B0 == null ? LB : B0,
+          goal = G0 || LG,
+          B = [],
+          M = [],
+          all = [];
+        TPL.forEach(function (tp) {
+          if (
+            !tp[3].every(function (q) {
+              return pr(IT[q[0]]) > 0 && !AVO[q[0]];
+            })
+          )
+            return;
+          (tp[0] == "b" ? B : M).push(tmet(tp));
+        });
+        B.forEach(function (b) {
+          M.forEach(function (l, i) {
+            M.forEach(function (d, j) {
+              if (i == j) return;
+              all.push({
+                m: [b, l, d],
+                c: b.c + l.c + d.c,
+                k: b.k + l.k + d.k,
+                p: b.p + l.p + d.p,
+              });
+            });
+          });
+        });
+        if (!all.length) return { plans: [] };
+        var sc = function (a) {
+            return goal == "prot"
+              ? (2 * Math.min(a.p, 100)) / 100 +
+                  (0.4 * Math.min(a.k, 2400)) / 2400
+              : goal == "eng"
+                ? (0.5 * Math.min(a.p, 70)) / 70 +
+                  (2 * Math.min(a.k, 2800)) / 2800
+                : Math.min(a.p, 70) / 70 + Math.min(a.k, 2200) / 2200;
+          },
+          ft = all.filter(function (a) {
+            return a.c <= bud;
+          });
+        if (!ft.length) {
+          all.sort(function (a, b) {
+            return a.c - b.c;
+          });
+          return { plans: [all[0]] };
+        }
+        ft.sort(function (a, b) {
+          return sc(b) - sc(a);
+        });
+        var pick = [],
+          used = {};
+        ft.forEach(function (a) {
+          if (pick.length >= 3) return;
+          var l = a.m[1].tp[1],
+            d = a.m[2].tp[1];
+          if (used[l] || used[d]) return;
+          used[l] = 1;
+          used[d] = 1;
+          pick.push(a);
+        });
+        ft.forEach(function (a) {
+          if (pick.length >= 3 || pick.indexOf(a) >= 0) return;
+          pick.push(a);
+        });
+        return { plans: pick, ranked: ft };
+      }
+      function lowRender() {
+        var o = $("lowo");
+        o.textContent = "";
+        var R = lowPlans();
+        if (!R.plans.length) {
+          o.append(el("p", t("lmin0"), "bad"));
+          return;
+        }
+        if (LO >= R.plans.length) LO = 0;
+        var pl = R.plans[LO],
+          over = pl.c > LB;
+        if (over)
+          o.append(
+            el("div", t("lmin").replace("{n}", Math.ceil(pl.c)), "lwarn"),
+          );
+        var tb = el("div", "", "ltabs");
+        R.plans.forEach(function (p, i) {
+          var b = el(
+            "div",
+            t("lopt") + " " + (i + 1) + " · ৳" + Math.round(p.c),
+            "ltab" + (i == LO ? " on" : ""),
+          );
+          b.onclick = function () {
+            LO = i;
+            lowRender();
+          };
+          tb.append(b);
+        });
+        o.append(tb);
+        var ds = el("div", "", "dash");
+        ds.append(
+          ring("wallet", t("lcost"), pl.c, LB, "৳", !over, "/ " + LB + " ৳", 0),
+          ring("zap", t("prt"), pl.p, 60, "g", pl.p >= 54, "/ 60 g", 1),
+          ring(
+            "food",
+            t("cal"),
+            pl.k,
+            2000,
+            "kcal",
+            pl.k >= 1700 && pl.k <= 2400,
+            "/ 2000 kcal",
+            2,
+          ),
+        );
+        o.append(ds);
+        var gr = el("div", "", "lcards");
+        ["breakfast", "lunch", "dinner"].forEach(function (k, i) {
+          var m = pl.m[i],
+            c = el("div", "", "lc"),
+            h = el("div", "", "lch"),
+            ic = el("span"),
+            tg = el("div", "", "tags"),
+            bd = el("div", "", "lcb");
+          c.style.setProperty("--mc", MC[k]);
+          c.style.animationDelay = i * 140 + "ms";
+          ic.innerHTML = sv(IC[["sunrise", "sun", "moon"][i]], 20);
+          h.append(
+            ic,
+            el("span", t(["bf", "ln", "dn"][i])),
+            el("span", "৳" + Math.round(m.c), "pr"),
+          );
+          m.tp[3].forEach(function (q, n) {
+            var x = IT[q[0]],
+              tag = el("span", "", "tag");
+            tag.style.animationDelay = i * 140 + 250 + n * 70 + "ms";
+            tag.append(dot(x), nm(x) + " " + q[1] + " g");
+            tg.append(tag);
+          });
+          bd.append(
+            el("div", L == "bn" ? m.tp[1] : m.tp[2], "lcn"),
+            tg,
+            el("div", "", "mh"),
+          );
+          var mh = bd.lastChild;
+          mh.append(
+            el("span", Math.round(m.k) + " kcal", "badge"),
+            el("span", Math.round(m.p) + " g " + t("prt"), "badge"),
+          );
+          c.append(h, bd);
+          gr.append(c);
+        });
+        o.append(gr);
+        if (!over)
+          o.append(
+            verdict(
+              true,
+              "check",
+              t("lcost"),
+              t("saved") + " ৳" + Math.round(LB - pl.c),
+              Math.round(pl.c) + " ৳ / " + LB + " ৳",
+              300,
+            ),
+          );
+        o.append(el("p", t("lnote"), "warn"));
+      }
+      function lowInit() {
+        var q = $("lbq"),
+          g = $("lgl");
+        q.textContent = "";
+        g.textContent = "";
+        $("lbn").textContent = "৳ " + LB;
+        $("lbs").value = LB;
+        [50, 80, 100, 150, 200, 300].forEach(function (v) {
+          var l = el("label", "", "chip" + (LB == v ? " on" : ""));
+          l.append("৳ " + v);
+          l.onclick = function () {
+            LB = v;
+            LO = 0;
+            lowInit();
+          };
+          q.append(l);
+        });
+        VGL.forEach(function (p) {
+          var l = el("label", "", "chip" + (LG == p[0] ? " on" : "")),
+            c = document.createElement("input");
+          c.type = "checkbox";
+          c.checked = LG == p[0];
+          c.onchange = function () {
+            LG = p[0];
+            LO = 0;
+            lowInit();
+          };
+          l.append(c, t(p[1]));
+          g.append(l);
+        });
+        lowRender();
+      }
+      function fbPlan(o, N, pp, p, sh) {
+        var mk = ["breakfast", "lunch", "dinner"],
+          has = mk.map(function (k) {
+            return o.meals.indexOf(k) >= 0;
+          }),
+          B = [],
+          M = [],
+          ST = { 17: 1, 18: 1, 19: 1, 20: 1, 28: 1, 29: 1, 30: 1 },
+          IR = {
+            3: 1,
+            4: 1,
+            5: 1,
+            6: 1,
+            15: 1,
+            16: 1,
+            23: 1,
+            24: 1,
+            25: 1,
+            26: 1,
+            27: 1,
+          };
+        TPL.forEach(function (tp) {
+          if (
+            !tp[3].every(function (q) {
+              return pr(IT[q[0]]) > 0 && !AVO[q[0]];
+            })
+          )
+            return;
+          (tp[0] == "b" ? B : M).push(tmet(tp));
+        });
+        if ((has[0] && !B.length) || ((has[1] || has[2]) && !M.length))
+          return [];
+        var ea = Object.keys(EAT).some(function (k) {
+            return EAT[k];
+          }),
+          eo = function (m) {
+            return (
+              !ea ||
+              m.tp[3].every(function (q) {
+                return ST[q[0]] || EAT[q[0]];
+              })
+            );
+          },
+          Bp = has[0] ? B.filter(eo) : [null],
+          Mp = M.filter(eo);
+        if (has[0] && !Bp.length) Bp = B;
+        if (Mp.length < 3) Mp = M;
+        var Tk = p.kcal * sh,
+          Tp = p.prot * sh,
+          wp = o.stu ? 2.4 : 1.6,
+          days = [],
+          used = {};
+        for (var i = 0; i < N; i++) {
+          var best = null,
+            bs = -1e9;
+          Bp.forEach(function (b) {
+            (has[1] ? Mp : [null]).forEach(function (l) {
+              (has[2] ? Mp : [null]).forEach(function (d) {
+                if (l && d && l === d) return;
+                var ms = [b, l, d],
+                  ar = ms.filter(Boolean),
+                  c = 0,
+                  k = 0,
+                  pt = 0,
+                  ir = 0;
+                ar.forEach(function (m) {
+                  c += m.c;
+                  k += m.k;
+                  pt += m.p;
+                  if (
+                    m.tp[3].some(function (q) {
+                      return IR[q[0]];
+                    })
+                  )
+                    ir++;
+                });
+                var s2 = Math.max(0.5, Math.min(1.9, Tk / k, pp / c)),
+                  kk = k * s2,
+                  pq = pt * s2,
+                  cc = c * s2,
+                  sc =
+                    -Math.abs(kk - Tk) / Tk -
+                    (wp * Math.max(0, Tp - pq)) / Tp -
+                    (0.8 * Math.max(0, cc - pp)) / pp +
+                    (p.g == "f" ? 0.05 * ir : 0) +
+                    Math.random() * 0.15;
+                if (l && used[l.tp[1]]) sc -= 0.5;
+                if (d && used[d.tp[1]]) sc -= 0.5;
+                if (sc > bs) {
+                  bs = sc;
+                  best = { ms: ms, s: s2 };
+                }
+              });
+            });
+          });
+          var day = { i: i, meals: [] };
+          best.ms.forEach(function (m, k) {
+            if (!m) return;
+            used[m.tp[1]] = 1;
+            day.meals.push({
+              t: mk[k],
+              dish: L == "bn" ? m.tp[1] : m.tp[2],
+              items: m.tp[3].map(function (q) {
+                return {
+                  id: q[0],
+                  g: Math.max(5, Math.round((q[1] * best.s) / 5) * 5),
+                };
+              }),
+            });
+          });
+          days.push(day);
+          if (Object.keys(used).length >= Mp.length - 2) used = {};
+        }
+        return days;
+      }
+      function fbDays(N, pp, goal) {
+        var R = lowPlans(pp, goal),
+          rk = R.ranked || R.plans,
+          days = [],
+          used = [];
+        if (!rk.length) return days;
+        for (var i = 0; i < N; i++) {
+          var c = null;
+          for (var j = 0; j < rk.length; j++) {
+            var a = rk[j];
+            if (
+              used.indexOf(a.m[1].tp[1]) < 0 &&
+              used.indexOf(a.m[2].tp[1]) < 0
+            ) {
+              c = a;
+              break;
+            }
+          }
+          if (!c) {
+            used = [];
+            c = rk[0];
+          }
+          used.push(c.m[1].tp[1], c.m[2].tp[1]);
+          days.push(c);
+        }
+        return days;
+      }
+      function dayFromPlan(a, i, meals) {
+        var mk = ["breakfast", "lunch", "dinner"],
+          r = { i: i, meals: [] };
+        a.m.forEach(function (m, k) {
+          if (meals.indexOf(mk[k]) < 0) return;
+          r.meals.push({
+            t: mk[k],
+            dish: L == "bn" ? m.tp[1] : m.tp[2],
+            items: m.tp[3].map(function (q) {
+              return { id: q[0], g: q[1] };
+            }),
+          });
+        });
+        return r;
+      }
+      function verdict(good, ik, lb, big, sm, dl) {
+        var v = el("div", "", "vd " + (good ? "vok" : "vno")),
+          i = el("div", "", "vi"),
+          x = el("div", "", "vx");
+        i.innerHTML = sv(IC[ik], 26);
+        x.append(
+          el("div", lb, "vl"),
+          el("div", big, "vbig"),
+          el("div", sm, "vs"),
+        );
+        v.append(i, x);
+        v.style.animationDelay = dl + "ms";
+        return v;
+      }
+      function confetti(b) {
+        var cl = [
+          "#f59f00",
+          "#e8590c",
+          "#2f9e44",
+          "#d6336c",
+          "#5f3dc4",
+          "#1c7ed6",
+        ];
+        for (var i = 0; i < 28; i++) {
+          var e = el("i", "", "cf");
+          e.style.left = Math.random() * 100 + "%";
+          e.style.background = cl[i % 6];
+          e.style.animationDelay = Math.random() * 0.7 + "s";
+          e.style.setProperty("--r", Math.random() * 720 - 360 + "deg");
+          b.append(e);
+        }
+        setTimeout(function () {
+          b.querySelectorAll(".cf").forEach(function (x) {
+            x.remove();
+          });
+        }, 3400);
+      }
+      function dayData(d, dy) {
+        var r = { meals: [], P: 0, K: 0, C: 0 };
+        MT.forEach(function (k, j) {
+          if (d.meals.indexOf(k) < 0) return;
+          var m = (dy.meals || []).filter(function (z) {
+            return z.t == k;
+          })[0];
+          if (!m) return;
+          var P = 0,
+            K = 0,
+            it = [];
+          (m.items || []).forEach(function (s) {
+            var x = IT[s.id],
+              g = +s.g || 0;
+            if (!x || !d.ids[s.id]) return;
+            P += (g * x.pr) / 100;
+            K += (g * x.kc) / 100;
+            r.C += (g / x.g) * pr(x);
+            it.push({ x: x, g: g });
+          });
+          r.meals.push({ k: k, j: j, dish: m.dish, P: P, K: K, it: it });
+          r.P += P;
+          r.K += K;
+        });
+        return r;
+      }
+      function dayPanel(d, di, sh, box) {
+        box.textContent = "";
+        var dd = d.dd[di],
+          p = d.p,
+          nd = d.dd.length;
+        var hh = el("div", "", "dph");
+        hh.append(
+          el(
+            "h3",
+            nd == 1
+              ? L == "bn"
+                ? "আজ"
+                : "Today"
+              : DN[d.r.days[di].i][L == "bn" ? 0 : 1],
+          ),
+          el("span", "৳" + Math.round(dd.C) + " · " + t("pp"), "badge"),
+        );
+        box.append(hh);
+        if (p)
+          box.append(
+            bar(t("prt"), dd.P, Math.round(p.prot * sh), "g"),
+            bar(t("cal"), dd.K, Math.round(p.kcal * sh), "kcal"),
+          );
+        var tl = el("div", "", "tl2");
+        dd.meals.forEach(function (m, n) {
+          var row = el("div", "", "mrow"),
+            ico = el("div", "", "mico"),
+            cd = el("div", "", "mcard"),
+            mh = el("div", "", "mh"),
+            tg = el("div", "", "tags"),
+            pb = el("div", "", "mbar"),
+            pf = el("div", "", "mbf");
+          row.style.setProperty("--mc", MC[m.k]);
+          row.style.animationDelay = n * 130 + "ms";
+          ico.innerHTML = sv(IC[MI[m.j]], 22);
+          mh.append(
+            el("span", t(MK[m.j]), "mbadge"),
+            el("span", Math.round(m.K) + " kcal", "badge"),
+            el("span", Math.round(m.P) + " g " + t("prt"), "badge"),
+          );
+          m.it.forEach(function (q, i) {
+            var tag = el("span", "", "tag");
+            tag.style.animationDelay = n * 130 + 200 + i * 70 + "ms";
+            tag.append(dot(q.x), nm(q.x) + " " + Math.round(q.g) + " g");
+            tg.append(tag);
+          });
+          pf.style.background = MC[m.k];
+          pf.style.width = "0%";
+          pb.append(pf);
+          var w = dd.P > 0 ? (m.P / dd.P) * 100 : 0;
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              pf.style.width = w + "%";
+            });
+          });
+          cd.append(mh, el("div", String(m.dish || ""), "mdish"), tg, pb);
+          row.append(ico, cd);
+          tl.append(row);
+        });
+        box.append(tl);
+      }
+      function render(d, id) {
+        if (!d) return;
+        var o = $(id);
+        o.textContent = "";
+        var sz = d.size,
+          p = d.p,
+          days = d.r.days,
+          nd = days.length || 1,
+          sh = d.meals.reduce(function (a, k) {
+            return a + MW[k];
+          }, 0);
+        d.dd = days.map(function (dy) {
+          return dayData(d, dy);
+        });
+        var tot = {},
+          tp = 0,
+          tk = 0;
+        d.dd.forEach(function (r) {
+          tp += r.P;
+          tk += r.K;
+          r.meals.forEach(function (m) {
+            m.it.forEach(function (q) {
+              tot[q.x.i] = (tot[q.x.i] || 0) + q.g;
+            });
+          });
+        });
+        var c = el("div", "", "card");
+        c.append(hd("list", t("pt" + d.per)));
+        if (d.per == 2) c.append(el("p", t("np"), "warn"));
+        if (d.sel == null || d.sel >= nd) d.sel = 0;
+        var box = el("div", "", "dpn");
+        if (nd > 1) {
+          var mx = Math.max.apply(
+              null,
+              d.dd
+                .map(function (r) {
+                  return r.P;
+                })
+                .concat([p ? p.prot * sh * 1.25 : 1, 1]),
+            ),
+            wk = el("div", "", "wk"),
+            cols = [];
+          d.dd.forEach(function (r, i) {
+            var col = el("div", "", "wcol"),
+              bw = el("div", "", "wbw"),
+              b = el("div", "", "wb");
+            var good = !p || r.P >= p.prot * sh * 0.9;
+            b.style.background = good
+              ? "linear-gradient(180deg,#69db7c,#2f9e44)"
+              : "linear-gradient(180deg,#ffa94d,#e8590c)";
+            b.style.height = "0%";
+            if (p) {
+              var gl = el("div", "", "gline");
+              gl.style.bottom = ((p.prot * sh) / mx) * 100 + "%";
+              bw.append(gl);
+            }
+            bw.append(b);
+            col.append(
+              el("div", Math.round(r.P) + " g", "wv"),
+              bw,
+              el("div", DS[days[i].i][L == "bn" ? 0 : 1], "wl"),
+            );
+            col.style.animationDelay = i * 70 + "ms";
+            requestAnimationFrame(function () {
+              requestAnimationFrame(function () {
+                b.style.height = (r.P / mx) * 100 + "%";
+              });
+            });
+            col.onclick = function () {
+              d.sel = i;
+              cols.forEach(function (x, k) {
+                x.classList.toggle("on", k == i);
+              });
+              dayPanel(d, i, sh, box);
+            };
+            cols.push(col);
+            wk.append(col);
+          });
+          cols[d.sel].classList.add("on");
+          c.append(el("p", t("wkT"), "warn"), wk);
+        }
+        c.append(box);
+        dayPanel(d, d.sel, sh, box);
+        var c2 = el("div", "", "card");
+        c2.append(hd("cart", t("shop")));
+        var s2 = el("div", "", "scroll"),
+          T2 = el("table"),
+          h2 = el("tr"),
+          ri = 0;
+        ["item", "qty", "cost"].forEach(function (k) {
+          h2.append(el("th", t(k)));
+        });
+        T2.append(h2);
+        var cost = 0,
+          sc = d.D / nd;
+        Object.keys(tot).forEach(function (i2) {
+          var x = IT[i2],
+            q = (tot[i2] * sz * sc) / x.g;
+          q = x.u == "h" ? Math.ceil(q) : Math.ceil(q * 10) / 10;
+          var co = Math.round(q * pr(x));
+          cost += co;
+          var r = el("tr"),
+            n = el("td");
+          r.style.animation = "up .45s both";
+          r.style.animationDelay = ri++ * 50 + "ms";
+          n.append(dot(x), nm(x));
+          r.append(n, el("td", q + " " + ul(x)), el("td", co + " ৳"));
+          T2.append(r);
+        });
+        (d.extra || []).forEach(function (e, i) {
+          cost += e.p;
+          var r = el("tr"),
+            cl = el("td"),
+            rb = el("button", "×", "rm");
+          rb.onclick = function () {
+            d.extra.splice(i, 1);
+            render(d, id);
+          };
+          cl.append(e.p + " ৳", rb);
+          var nn = el("td");
+          nn.append(xdot(e.c || "o"), e.n);
+          r.append(nn, el("td", e.q || "-"), cl);
+          T2.append(r);
+        });
+        s2.append(T2);
+        c2.append(s2);
+        c2.append(
+          el("h3", t("addX")),
+          el("p", t("addXh"), "warn"),
+          extraForm(d, id),
+        );
+        var ok = cost <= d.b,
+          ap = tp / nd,
+          ak = tk / nd,
+          c0 = el("div", "", "card"),
+          ds = el("div", "", "dash");
+        c0.append(hd("zap", t("nut")));
+        ds.append(
+          ring("wallet", t("tot"), cost, d.b, "৳", ok, "/ " + d.b + " ৳", 0),
+        );
+        if (p) {
+          var gp = p.prot * sh,
+            gk = p.kcal * sh;
+          ds.append(
+            ring(
+              "zap",
+              t("prt"),
+              ap,
+              gp,
+              "g",
+              ap >= gp * 0.9,
+              "/ " + Math.round(gp) + " g",
+              1,
+            ),
+            ring(
+              "food",
+              t("cal"),
+              ak,
+              gk,
+              "kcal",
+              ak >= gk * 0.85 && ak <= gk * 1.2,
+              "/ " + Math.round(gk) + " kcal",
+              2,
+            ),
+          );
+        }
+        var gd = p ? ap >= p.prot * sh * 0.9 : true,
+          left = d.b - cost,
+          vds = el("div", "", "vds");
+        vds.append(
+          verdict(
+            ok,
+            ok ? "check" : "alert",
+            t("vb"),
+            ok ? t("saved") + " ৳" + left : t("over") + " ৳" + -left,
+            t("tot") + ": " + cost + " ৳ / " + d.b + " ৳",
+            0,
+          ),
+        );
+        if (p)
+          vds.append(
+            verdict(
+              gd,
+              gd ? "check" : "alert",
+              t("vp"),
+              t(gd ? "goodv" : "lowv"),
+              Math.round(ap) +
+                " g / " +
+                Math.round(p.prot * sh) +
+                " g " +
+                t("day"),
+              150,
+            ),
+          );
+        c0.append(ds, vds);
+        if (d.r.notes) {
+          var tp2 = el("div", "", "tip"),
+            ti = el("div", "", "tipi"),
+            tx = el("div", "", "tipt");
+          ti.innerHTML = sv(IC.bulb, 24);
+          tx.append(el("b", t("tipL")), el("div", String(d.r.notes)));
+          tp2.append(ti, tx);
+          if (PIC[3]) {
+            var tm = document.createElement("img");
+            tm.src = PIC[3];
+            tm.alt = "";
+            tm.className = "tipm";
+            tp2.append(tm);
+          }
+          c0.append(tp2);
+        }
+        c0.style.position = "relative";
+        c0.style.overflow = "hidden";
+        o.append(c0, c, c2);
+        if (ok && gd) confetti(c0);
+      }
+      function lang() {
+        document.documentElement.lang = L;
+        document.querySelectorAll("[data-i]").forEach(function (e) {
+          e.textContent = t(e.dataset.i);
+        });
+        document.querySelectorAll("[data-p]").forEach(function (e) {
+          e.placeholder = t(e.dataset.p);
+        });
+        $("lg").textContent = L == "bn" ? "EN" : "বাং";
+        $("go").textContent = t("go");
+        $("sgo").textContent = t("stG");
+        $("dis").textContent = t("dis");
+        $("srcn").textContent = t(SRC == "nat" ? "n_nat" : "n_dhk");
+        smeals();
+        hsel();
+        bl();
+        mq();
+        themeIcon();
+        vsel();
+        runVs();
+        lowInit();
+        ic();
+        foods();
+        ptab();
+        prot();
+        fc();
+        render(LAST, "out");
+        render(LASTS, "sout");
+      }
+      function smeals() {
+        var b = $("sm"),
+          keep = {};
+        b.querySelectorAll("input").forEach(function (i) {
+          keep[i.value] = i.checked;
+        });
+        if (!b.children.length) {
+          keep = { lunch: 1, dinner: 1 };
+        }
+        b.textContent = "";
+        MT.forEach(function (k, j) {
+          var l = el("label", "", "chip" + (keep[k] ? " on" : "")),
+            c = document.createElement("input");
+          c.type = "checkbox";
+          c.value = k;
+          c.checked = !!keep[k];
+          c.onchange = function () {
+            l.classList.toggle("on", c.checked);
+          };
+          l.append(c, t(MK[j]));
+          b.append(l);
+        });
+      }
+      $("lg").onclick = function () {
+        L = L == "bn" ? "en" : "bn";
+        lang();
+      };
+      $("q").oninput = function () {
+        foods();
+        ptab();
+        sug();
+      };
+      $("q").onfocus = sug;
+      $("q").onblur = function () {
+        setTimeout(function () {
+          $("sug").style.display = "none";
+        }, 150);
+      };
+      $("q").onkeydown = function (e) {
+        if (e.key == "Enter") {
+          $("sug").style.display = "none";
+          $("foods").scrollIntoView({ behavior: "smooth" });
+        }
+        if (e.key == "Escape") {
+          $("q").value = "";
+          foods();
+          ptab();
+          sug();
+        }
+      };
+      mkpf("s", "spf", 21, 60);
+      mkpf("p", "ppf", 25, 60);
+      pids("p").forEach(function (i) {
+        $(i).oninput = prot;
+        $(i).onchange = prot;
+      });
+      function pj(s) {
+        s = s.replace(/```json|```/g, "").trim();
+        return JSON.parse(s.slice(s.indexOf("{"), s.lastIndexOf("}") + 1));
+      }
+      $("per").onchange = bl;
+      var DN = [
+        ["শনিবার", "Saturday"],
+        ["রবিবার", "Sunday"],
+        ["সোমবার", "Monday"],
+        ["মঙ্গলবার", "Tuesday"],
+        ["বুধবার", "Wednesday"],
+        ["বৃহস্পতিবার", "Thursday"],
+        ["শুক্রবার", "Friday"],
+      ];
+      async function getAI() {
+        // Gemini requests go through a Netlify Function so the API key
+        // is never exposed in this browser-side HTML.
+        return async function (prompt) {
+          var response = await fetch("/.netlify/functions/meal-plan", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt: prompt }),
+          });
+          var data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.error || "Gemini request failed");
+          }
+          if (typeof data.text !== "string" || !data.text.trim()) {
+            throw new Error("Gemini returned an empty response");
+          }
+          return { text: data.text };
+        };
+      }
+      async function ask(sm, pt) {
+        for (var k = 0; k < 3; k++) {
+          try {
+            var r = pj((await sm(pt, { cache: false })).text);
+            if (r && Array.isArray(r.meals)) return r;
+          } catch (e) {
+            if (k == 2) throw e;
+            await new Promise(function (r) {
+              setTimeout(r, 1200 * (k + 1));
+            });
+          }
+        }
+        throw new Error("bad json");
+      }
+      async function gen(o) {
+        var out = $(o.out),
+          btn = $(o.btn),
+          p = prof(o.px),
+          D = [1, 7, 30][o.per],
+          N = o.per == 0 ? 1 : 7;
+        out.textContent = "";
+        if (!p) {
+          out.append(el("p", t("e1"), "bad"));
+          return;
+        }
+        if (!(o.size > 0) || !(o.bud > 0) || !o.meals.length) return;
+        var ids = IT.filter(function (x) {
+            return pr(x) > 0 && EAT[x.i];
+          }),
+          A = (
+            ids.length
+              ? ids
+              : IT.filter(function (x) {
+                  return pr(x) > 0;
+                })
+          ).filter(function (x) {
+            return !AVO[x.i];
+          });
+        if (A.length < 6) {
+          out.append(el("p", t("e2"), "bad"));
+          return;
+        }
+        btn.disabled = true;
+        btn.textContent = t("wait");
+        var im = {},
+          ln = L == "bn" ? "Bangla" : "English";
+        A.forEach(function (x) {
+          im[x.i] = 1;
+        });
+        try {
+          var sm = await getAI();
+          if (!sm) {
+            var sh0 = o.meals.reduce(function (a, k) {
+                return a + MW[k];
+              }, 0),
+              dd = fbPlan(o, N, o.bud / (o.size * D), p, sh0);
+            if (!dd.length) {
+              out.append(el("p", t("lmin0"), "bad"));
+              return;
+            }
+            var im2 = {};
+            dd.forEach(function (dy) {
+              dy.meals.forEach(function (m) {
+                m.items.forEach(function (q) {
+                  im2[q.id] = 1;
+                });
+              });
+            });
+            var d0 = {
+              r: { days: dd, notes: t(p.g == "f" ? "tipf" : "tipm") },
+              ids: im2,
+              b: o.bud,
+              size: o.size,
+              p: p,
+              per: o.per,
+              D: D,
+              N: N,
+              meals: o.meals,
+            };
+            if (o.k == "m") LAST = d0;
+            else LASTS = d0;
+            render(d0, o.out);
+            return;
+          }
+          var sh = o.meals.reduce(function (a, k) {
+            return a + MW[k];
+          }, 0);
+          var base =
+            "You are a meal-planning helper for families in Bangladesh. General meal planning only: no medical or weight-loss advice.\nPlan for ONE person (" +
+            (p.g == "f"
+              ? "female. Include iron-rich foods from the list: lentils, leafy greens, fish or meat if available."
+              : "male.") +
+            ")." +
+            (o.stu
+              ? " The person is a university student with a very small budget, living in a hostel or mess: very simple cooking, cheapest possible protein (dal, eggs, cheap fish), maximise protein per taka."
+              : "") +
+            " Food budget per person: " +
+            Math.round(o.bud / (o.size * D)) +
+            " BDT per day; cost of a food = grams/100 x price per 100 g. Target for the meals planned: about " +
+            Math.round(p.prot * sh) +
+            " g protein and " +
+            Math.round(p.kcal * sh) +
+            " kcal per person per day. Prefer affordable protein and vegetables.\n" +
+            "Use ONLY these foods (id|name|price per 100 g in BDT):\n" +
+            A.map(function (x) {
+              return x.i + "|" + x.en + "|" + ((pr(x) / x.g) * 100).toFixed(1);
+            }).join("\n") +
+            "\nPlan ONE day with ONLY these meals: " +
+            o.meals.join(", ") +
+            ". Each meal has a short dish name in " +
+            ln +
+            " and 2 to 4 items with grams for one person, using only the listed ids.";
+          var days = new Array(N),
+            done = 0,
+            fbn = 0,
+            idx = 0,
+            P = A.filter(function (x) {
+              return x.pr >= 10;
+            }),
+            pg = el("div", "", "gprog"),
+            pb2 = el("div", "", "gpb"),
+            pf2 = el("div", "", "gpf"),
+            ptx = el("div", "", "gpt"),
+            ppd = o.bud / (o.size * D);
+          pb2.append(pf2);
+          pg.append(ptx, pb2);
+          out.append(pg);
+          function upd() {
+            btn.textContent = t("wait") + (N > 1 ? " " + done + "/" + N : "");
+            ptx.textContent = t("gen") + (N > 1 ? " " + done + " / " + N : "");
+            pf2.style.width = (done / N) * 100 + "%";
+          }
+          upd();
+          async function worker() {
+            while (true) {
+              var i = idx++;
+              if (i >= N) return;
+              try {
+                var fx = P.length ? P[(i * 4) % P.length] : null;
+                var pt =
+                  base +
+                  "\nThis is day " +
+                  (i + 1) +
+                  " of " +
+                  N +
+                  "." +
+                  (N > 1 && fx
+                    ? " Make " +
+                      fx.en +
+                      " (id " +
+                      fx.i +
+                      ") the main protein food of this day (use it in lunch or dinner) so that days differ."
+                    : "") +
+                  '\nReply with compact JSON only, no other text: {"meals":[{"t":"lunch","dish":"","items":[{"id":0,"g":0}]}],"tip":""}. t must be one of the listed meals.';
+                var r = await ask(sm, pt);
+                r.i = i;
+                days[i] = r;
+              } catch (e) {
+                fbn++;
+                var f1 = fbPlan(o, 1, ppd, p, sh);
+                if (!f1.length) throw e;
+                f1[0].i = i;
+                days[i] = f1[0];
+              }
+              done++;
+              upd();
+            }
+          }
+          await Promise.all([worker(), worker(), worker()]);
+          out.textContent = "";
+          var d = {
+            r: { days: days, notes: days[N - 1].tip || "" },
+            ids: im,
+            b: o.bud,
+            size: o.size,
+            p: p,
+            per: o.per,
+            D: D,
+            N: N,
+            meals: o.meals,
+          };
+          if (o.k == "m") LAST = d;
+          else LASTS = d;
+          render(d, o.out);
+        } catch (e) {
+          out.textContent = "";
+          out.append(
+            el("p", t("e4"), "bad"),
+            el("p", String((e && (e.code || e.message)) || e), "warn"),
+          );
+        } finally {
+          btn.disabled = false;
+          btn.textContent = t(o.lbl);
+        }
+      }
+      $("go").onclick = function () {
+        gen({
+          out: "out",
+          btn: "go",
+          lbl: "go",
+          k: "m",
+          size: +$("size").value,
+          bud: +$("budget").value,
+          per: +$("per").value,
+          meals: MT,
+        });
+      };
+      $("sgo").onclick = function () {
+        gen({
+          out: "sout",
+          btn: "sgo",
+          lbl: "stG",
+          k: "s",
+          px: "s",
+          stu: 1,
+          size: 1,
+          bud: +$("sb").value,
+          per: +$("sp").value,
+          meals: MT.filter(function (k) {
+            return $("sm").querySelector('input[value="' + k + '"]').checked;
+          }),
+        });
+      };
+      var SEC = [
+        {
+          k: "n1",
+          h: "#me",
+          kw: "me profile gender age weight height আমি তথ্য লিঙ্গ ওজন বয়স",
+        },
+        { k: "n2", h: "#foods", kw: "foods eat avoid খাবার খাই" },
+        {
+          k: "n3",
+          h: "#plan",
+          kw: "plan meal weekly daily monthly প্ল্যান তালিকা বাজার",
+        },
+        { k: "n6", h: "#student", kw: "student hostel mess ছাত্র হোস্টেল মেস" },
+        { k: "n9", h: "#vsx", kw: "compare vs versus তুলনা বনাম" },
+        {
+          k: "n10",
+          h: "#lowx",
+          kw: "3 meals budget cheap low daily ৩ বেলা কম টাকা সস্তা",
+        },
+        {
+          k: "n4",
+          h: "#protein",
+          kw: "protein calculator calorie প্রোটিন ক্যালরি হিসাব",
+        },
+        { k: "n8", h: "#cards", kw: "cards flashcard কার্ড" },
+        { k: "n5", h: "#prices", kw: "price prices দাম বাজারদর" },
+      ];
+      function goFood(x) {
+        BS = x.i;
+        $("q").value = "";
+        $("sug").style.display = "none";
+        foods();
+        ptab();
+        prot();
+        $("protein").scrollIntoView({ behavior: "smooth" });
+      }
+      function sug() {
+        var q = $("q").value.trim().toLowerCase(),
+          b = $("sug");
+        b.textContent = "";
+        if (!q) {
+          b.style.display = "none";
+          return;
+        }
+        var n = 0;
+        IT.forEach(function (x) {
+          if (n >= 6 || pr(x) <= 0) return;
+          if ((x.bn + " " + x.en).toLowerCase().indexOf(q) < 0) return;
+          n++;
+          var r = el("div", "", "si");
+          r.append(
+            dot(x),
+            el("span", nm(x)),
+            el("small", x.pr + " g " + t("prt") + " / 100 g"),
+          );
+          r.onmousedown = function (e) {
+            e.preventDefault();
+            goFood(x);
+          };
+          b.append(r);
+        });
+        SEC.forEach(function (c) {
+          if ((t(c.k) + " " + c.kw).toLowerCase().indexOf(q) < 0) return;
+          var r = el("div", "", "si sec");
+          r.append(el("span", t(c.k)), el("small", t("sgs")));
+          r.onmousedown = function (e) {
+            e.preventDefault();
+            location.hash = c.h;
+            b.style.display = "none";
+          };
+          b.append(r);
+        });
+        b.style.display = b.children.length ? "block" : "none";
+      }
+      function isDark() {
+        var a = document.documentElement.getAttribute("data-theme");
+        return a
+          ? a == "dark"
+          : !!(
+              window.matchMedia &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches
+            );
+      }
+      function themeIcon() {
+        $("th").innerHTML = sv(isDark() ? IC.sun : IC.moon, 18);
+      }
+      $("th").onclick = function () {
+        var n = isDark() ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", n);
+        try {
+          localStorage.setItem("bbt", n);
+        } catch (e) {}
+        themeIcon();
+      };
+      try {
+        var t0 = localStorage.getItem("bbt");
+        if (t0) document.documentElement.setAttribute("data-theme", t0);
+      } catch (e) {}
+      function mq() {
+        var b = $("mq");
+        b.textContent = "";
+        for (var k = 0; k < 2; k++)
+          IT.forEach(function (x) {
+            if (pr(x) <= 0) return;
+            var s = el("span", "", "mi");
+            s.append(dot(x), nm(x) + " ", el("b", "৳" + pr(x) + "/" + ul(x)));
+            b.append(s);
+          });
+      }
+      (function () {
+        var b = $("hfd");
+        [
+          [21, 6, 6],
+          [13, 112, 0],
+          [25, 208, 16],
+          [23, 0, 104],
+          [31, 108, 92],
+          [10, 212, 116],
+          [22, 22, 196],
+          [0, 128, 184],
+        ].forEach(function (p, i) {
+          var d = el("div", "", "fd"),
+            im = document.createElement("img");
+          im.src = PIC[p[0]];
+          im.alt = "";
+          d.style.left = p[1] + "px";
+          d.style.top = p[2] + "px";
+          d.style.animationDelay = i * 0.4 + "s";
+          d.append(im);
+          b.append(d);
+        });
+      })();
+      PIC.me =
+        "data:image/svg+xml;utf8," +
+        encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#fff0d9"/><path d="M12 64c2-11 10-15 20-15s18 4 20 15z" fill="#e8590c"/><path d="M26 49l6 6 6-6" fill="#fff"/><circle cx="32" cy="38" r="12" fill="#f3c9a0"/><path d="M15 27c-5-2-6-11 1-13 2-6 9-8 14-3 4-4 12-3 14 3 7 2 6 11 0 13z" fill="#fff" stroke="#e0d3b0" stroke-width="2"/><rect x="19" y="26" width="26" height="6" rx="1" fill="#fff" stroke="#e0d3b0" stroke-width="2"/><circle cx="27" cy="39" r="1.6" fill="#3b2a1a"/><circle cx="37" cy="39" r="1.6" fill="#3b2a1a"/><path d="M27 44c3 3 7 3 10 0" stroke="#b5503a" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+        );
+      document.querySelectorAll("[data-pic]").forEach(function (e) {
+        e.src = PIC[e.dataset.pic];
+      });
+      [21, 13, 25, 23, 31, 10, 22, 0, 3, 17, 8, 7, 26, 5].forEach(function (n) {
+        var i = document.createElement("img");
+        i.src = PIC[n];
+        i.alt = "";
+        $("fs").append(i);
+      });
+      (function () {
+        var tl = document.querySelectorAll("#tips .tl a"),
+          go = function () {
+            tl.forEach(function (a, i) {
+              setTimeout(function () {
+                a.classList.add("in");
+              }, i * 380);
+            });
+          },
+          ta = document.querySelector("#tips .tart");
+        [
+          [21, "2%", "4%"],
+          [13, "78%", "2%"],
+          [25, "84%", "56%"],
+          [23, "-2%", "64%"],
+          [31, "42%", "86%"],
+        ].forEach(function (p, i) {
+          var d = el("div", "", "fd2"),
+            im = document.createElement("img");
+          im.src = PIC[p[0]];
+          im.alt = "";
+          d.style.left = p[1];
+          d.style.top = p[2];
+          d.style.animationDelay = i * 0.5 + "s";
+          d.append(im);
+          ta.append(d);
+        });
+        if ("IntersectionObserver" in window) {
+          var io = new IntersectionObserver(
+            function (es) {
+              if (es[0].isIntersecting) {
+                go();
+                io.disconnect();
+              }
+            },
+            { threshold: 0.25 },
+          );
+          io.observe($("tips"));
+        } else go();
+      })();
+      $("vss").innerHTML = sv(IC.swap, 20);
+      $("vsa").onchange = function () {
+        VA = +this.value;
+        runVs();
+      };
+      $("vsb").onchange = function () {
+        VB = +this.value;
+        runVs();
+      };
+      $("vss").onclick = function () {
+        var x = VA;
+        VA = VB;
+        VB = x;
+        vsel();
+        runVs();
+      };
+      $("lbs").oninput = function () {
+        LB = +this.value;
+        LO = 0;
+        $("lbn").textContent = "৳ " + LB;
+        lowRender();
+      };
+      lang();
+      refreshDAMPrices();
+    </script>
+  </body>
+</html>
